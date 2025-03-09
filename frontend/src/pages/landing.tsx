@@ -1,11 +1,10 @@
-import React from 'react';
+
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/lib/auth';
 import {
   GitBranch,
-  BarChart2,
   Brain,
   Shield,
   ArrowRight,

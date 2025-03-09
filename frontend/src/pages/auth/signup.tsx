@@ -25,9 +25,9 @@ type SignupForm = z.infer<typeof signupSchema>;
 
 export function SignupPage() {
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { register: signup } = useAuth();
   const { toast } = useToast();
-  
+
   const {
     register,
     handleSubmit,
@@ -38,8 +38,7 @@ export function SignupPage() {
 
   const onSubmit = async (data: SignupForm) => {
     try {
-      await login(data.email, data.password);// Using login for now, will be replaced with actual signup
-      console.log("data in login", data)
+      await signup(data);
       navigate('/dashboard');
     } catch (error) {
       toast({
@@ -125,17 +124,17 @@ export function SignupPage() {
           <div className="absolute inset-0 flex items-center">
             <span className="w-full border-t" />
           </div>
-          <div className="relative flex justify-center text-xs uppercase">
+          {/* <div className="relative flex justify-center text-xs uppercase">
             <span className="bg-background px-2 text-muted-foreground">
               Or continue with
             </span>
-          </div>
+          </div> */}
         </div>
 
-        <Button variant="outline" className="w-full" onClick={() => login('demo@example.com', 'demo123456')}>
+        {/* <Button variant="outline" className="w-full" onClick={() => login('demo@example.com', 'demo123456')}>
           <Github className="mr-2 h-4 w-4" />
           Continue with GitHub
-        </Button>
+        </Button> */}
 
         <p className="text-center text-sm text-muted-foreground">
           Already have an account?{' '}

@@ -1,7 +1,7 @@
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
-import type { User } from '@/types';
-import { authService } from '@/services/api/auth';
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
+import type { User } from "@/types";
+import { authService } from "@/services/api/auth";
 
 interface AuthState {
   user: User | null;
@@ -9,10 +9,15 @@ interface AuthState {
   isLoading: boolean;
   error: string | null;
   login: (email: string, password: string) => Promise<void>;
-  register: (data: { name: string; email: string; password: string }) => Promise<void>;
+  register: (data: {
+    name: string;
+    email: string;
+    password: string;
+  }) => Promise<void>;
   logout: () => Promise<void>;
   refreshToken: () => Promise<void>;
   clearError: () => void;
+  init: () => Promise<void>;
 }
 
 export const useAuth = create<AuthState>()(
@@ -28,7 +33,8 @@ export const useAuth = create<AuthState>()(
           const { user } = await authService.login(email, password);
           set({ user, isAuthenticated: true });
         } catch (error) {
-          const message = error instanceof Error ? error.message : 'Failed to login';
+          const message =
+            error instanceof Error ? error.message : "Failed to login";
           set({ error: message });
           throw error;
         } finally {
@@ -41,7 +47,8 @@ export const useAuth = create<AuthState>()(
           const { user } = await authService.register(data);
           set({ user, isAuthenticated: true });
         } catch (error) {
-          const message = error instanceof Error ? error.message : 'Failed to register';
+          const message =
+            error instanceof Error ? error.message : "Failed to register";
           set({ error: message });
           throw error;
         } finally {
@@ -54,7 +61,8 @@ export const useAuth = create<AuthState>()(
           await authService.logout();
           set({ user: null, isAuthenticated: false });
         } catch (error) {
-          const message = error instanceof Error ? error.message : 'Failed to logout';
+          const message =
+            error instanceof Error ? error.message : "Failed to logout";
           set({ error: message });
           throw error;
         } finally {
@@ -65,21 +73,34 @@ export const useAuth = create<AuthState>()(
         try {
           set({ isLoading: true, error: null });
           const { user } = await authService.refreshToken();
+          console.log("user in refreshToken useAuth", user);
           set({ user, isAuthenticated: true });
         } catch (error) {
           set({ user: null, isAuthenticated: false });
-          const message = error instanceof Error ? error.message : 'Failed to refresh token';
+          const message =
+            error instanceof Error ? error.message : "Failed to refresh token";
           set({ error: message });
           throw error;
         } finally {
           set({ isLoading: false });
         }
       },
-      clearError: () => set({ error: null })
+      clearError: () => set({ error: null }),
+      init: async () => {
+        try {
+          set({ isLoading: true, error: null });
+          const { user } = await authService.refreshToken();
+          set({ user, isAuthenticated: true });
+        } catch (error) {
+          set({ user: null, isAuthenticated: false });
+        } finally {
+          set({ isLoading: false });
+        }
+      },
     }),
     {
-      name: 'auth-storage',
-      partialize: (state) => ({ user: state.user })
+      name: "auth-storage",
+      partialize: (state) => ({ user: state.user }),
     }
   )
 );
