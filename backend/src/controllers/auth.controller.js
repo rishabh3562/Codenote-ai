@@ -1,3 +1,4 @@
+// -ai\backend\src\controllers\auth.controller.js
 import jwt from 'jsonwebtoken';
 import asyncHandler from 'express-async-handler';
 import User from '../models/User.js';
@@ -92,10 +93,10 @@ export const login = asyncHandler(async (req, res) => {
 export const logout = asyncHandler(async (req, res) => {
   // Clear cookies
   res.cookie('accessToken', '', { ...cookieConfig, maxAge: 0 });
-  res.cookie('refreshToken', '', { 
-    ...cookieConfig, 
+  res.cookie('refreshToken', '', {
+    ...cookieConfig,
     path: '/api/auth/refresh',
-    maxAge: 0 
+    maxAge: 0
   });
 
   logger.info(`User logged out: ${req.user?._id}`);
