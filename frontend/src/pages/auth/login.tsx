@@ -33,7 +33,8 @@ export function LoginPage() {
 
   const onSubmit = async (data: LoginForm) => {
     try {
-      await login(data.email, data.password);
+      await login(data);
+
       console.log("data in login",data)
       navigate('/dashboard');
     } catch (error) {
@@ -106,7 +107,7 @@ export function LoginPage() {
           </div>
         </div>
 
-        <Button variant="outline" className="w-full" onClick={() => login('demo@example.com', 'demo123456')}>
+        <Button variant="outline" className="w-full" >
           <Github className="mr-2 h-4 w-4" />
           Continue with GitHub
         </Button>

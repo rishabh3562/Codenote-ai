@@ -149,3 +149,24 @@ export const refresh = asyncHandler(async (req, res) => {
     throw error;
   }
 });
+
+export const session = asyncHandler(async (req, res) => {
+  const accessToken = req.cookies.accessToken;
+
+  if (!accessToken) {
+    return res.status(401).json({ message: 'No session found' });
+  }
+
+  try {
+    const decoded = jwt.verify(accessToken, process.env.JWT_SECRET);
+    const user = await User.findById(decoded.id);
+
+    if (!user) {
+      return res.status(401).json({ message: 'User not found' });
+    }
+
+    res.json({ user: { id: user._id, name: user.name, email: user.email, avatarUrl: user.avatarUrl } });
+  } catch (error) {
+    return res.status(401).json({ message: 'Invalid session' });
+  }
+});

@@ -1,21 +1,22 @@
-import React from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { AuthenticatedLayout } from '@/components/layout/authenticated-layout';
-import { LandingPage } from '@/pages/landing';
-import { LoginPage } from '@/pages/auth/login';
-import { SignupPage } from '@/pages/auth/signup';
-import { DashboardPage } from '@/pages/dashboard';
-import { RepositoriesPage } from '@/pages/repositories';
-import { RepositoryPage } from '@/pages/repository';
-import { RepositoryStatsPage } from '@/pages/repository-stats';
-import { BranchesPage } from '@/pages/branches';
-import { PullRequestsPage } from '@/pages/pull-requests';
-import { UserAnalysisPage } from '@/pages/user-analysis';
-import { SettingsPage } from '@/pages/settings';
-import { AIInsightsPage } from '@/pages/ai-insights';
-import { StatsPage } from '@/pages/stats';
-import { Toaster } from '@/components/ui/toaster';
+import React, { useEffect, useState } from "react";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { AuthenticatedLayout } from "@/components/layout/authenticated-layout";
+import { LandingPage } from "@/pages/landing";
+import { LoginPage } from "@/pages/auth/login";
+import { SignupPage } from "@/pages/auth/signup";
+import { DashboardPage } from "@/pages/dashboard";
+import { RepositoriesPage } from "@/pages/repositories";
+import { RepositoryPage } from "@/pages/repository";
+import { RepositoryStatsPage } from "@/pages/repository-stats";
+import { BranchesPage } from "@/pages/branches";
+import { PullRequestsPage } from "@/pages/pull-requests";
+import { UserAnalysisPage } from "@/pages/user-analysis";
+import { SettingsPage } from "@/pages/settings";
+import { AIInsightsPage } from "@/pages/ai-insights";
+import { StatsPage } from "@/pages/stats";
+import { Toaster } from "@/components/ui/toaster";
+import { useAuth } from "./lib/auth";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -27,6 +28,15 @@ const queryClient = new QueryClient({
 });
 
 function App() {
+  const { init, isAuthenticated } = useAuth();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    init().finally(() => setLoading(false));
+  }, []);
+
+  if (loading) return <div>Loading...</div>; // Prevents rendering before auth is initialized
+
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
@@ -34,7 +44,7 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
-          
+
           {/* Protected Routes */}
           <Route element={<AuthenticatedLayout />}>
             <Route path="/dashboard" element={<DashboardPage />} />

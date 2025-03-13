@@ -16,27 +16,20 @@ apiClient.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
 
-    if (!originalRequest) {
-      throw handleApiError(error);
-    }
-
-    // Handle 401 Unauthorized errors
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
-
       try {
-        const auth = useAuth.getState();
-        await auth.refreshToken();
+        await useAuth.getState().refreshToken();
         return apiClient(originalRequest);
-      } catch (refreshError) {
-        const auth = useAuth.getState();
-        await auth.logout();
-        throw handleApiError(refreshError);
+      } catch {
+        await useAuth.getState().logout();
+        return Promise.reject(error);
       }
     }
 
-    throw handleApiError(error);
+    return Promise.reject(error);
   }
 );
+
 
 export default apiClient;

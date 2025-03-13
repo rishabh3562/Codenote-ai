@@ -78,12 +78,16 @@ const features = [
 
 export function LandingPage() {
   const navigate = useNavigate();
-  const { login } = useAuth();
-
+  const { login, user } = useAuth();
+  console.log("user", user)
   const handleGetStarted = () => {
-    // login();
-    navigate('/login');
+    if (user) {
+      navigate('/dashboard'); // Redirect if logged in
+    } else {
+      navigate('/login');
+    }
   };
+
 
   return (
     <div className="min-h-screen bg-background">
@@ -121,9 +125,10 @@ export function LandingPage() {
               className="flex justify-center gap-4"
             >
               <Button size="lg" onClick={handleGetStarted}>
-                Get Started
+                {user ? "Go to Dashboard" : "Get Started"}
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
+
               <Button size="lg" variant="outline">
                 View Demo
               </Button>
@@ -214,9 +219,10 @@ export function LandingPage() {
               Join thousands of developers who are already using CodeNote.ai to improve their code quality.
             </p>
             <Button size="lg" onClick={handleGetStarted}>
-              Get Started Now
+              {user ? "Go to Dashboard" : "Get Started"}
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
+
           </div>
         </div>
       </motion.div>
