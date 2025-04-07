@@ -167,6 +167,6 @@ export const session = asyncHandler(async (req, res) => {
 
     res.json({ user: { id: user._id, name: user.name, email: user.email, avatarUrl: user.avatarUrl } });
   } catch (error) {
-    return res.status(401).json({ message: 'Invalid session' });
+    return res.status(401).json({ message: 'Invalid session', error: error.message });
   }
 });
