@@ -4,7 +4,7 @@ import { Sidebar } from './sidebar';
 import { useAuth } from '@/lib/auth';
 export function AuthenticatedLayout() {
   const { isAuthenticated, user } = useAuth();
-
+  console.log('isAuthenticated', isAuthenticated);
   if (isAuthenticated === false) {
     return <Navigate to="/" replace />;
   }
