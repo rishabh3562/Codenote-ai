@@ -55,16 +55,22 @@ export const register = asyncHandler(async (req, res) => {
   });
 });
 export const logout = asyncHandler(async (req, res) => {
-  // Clear cookies
-  res.cookie('accessToken', '', { ...cookieConfig, maxAge: 0 });
+  // Clear cookies by setting expiry and matching attributes
+  res.cookie('accessToken', '', {
+    ...cookieConfig,
+    maxAge: 0,
+    expires: new Date(0),
+    path: '/',
+  });
+
   res.cookie('refreshToken', '', {
     ...cookieConfig,
-
     maxAge: 0,
+    expires: new Date(0),
+    path: '/',
   });
 
   logger.info(`User logged out: ${req.user?._id}`);
-
   res.json({ message: 'Logged out successfully' });
 });
 
