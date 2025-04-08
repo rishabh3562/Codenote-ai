@@ -82,7 +82,7 @@ const queryClient = new QueryClient({
 });
 
 const App = () => {
-  const { init, user } = useAuth();
+  const { init, user, isAuthenticated, isLoading } = useAuth();
   const hasInitialized = useRef(false);
   const [loading, setLoading] = useState(true);
 
@@ -94,7 +94,7 @@ const App = () => {
   }, []);
 
   if (loading) return <div>Loading...</div>;
-
+  console.log('after loading in app.tsx', user, isAuthenticated, isLoading);
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>

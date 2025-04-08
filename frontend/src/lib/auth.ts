@@ -45,12 +45,15 @@ export const useAuth = create<AuthState>((set, get) => ({
         initialized: true,
       });
     } catch (err: unknown) {
-      console.log('instanceof error', err);
+      // console.log('instanceof error in init:', err);
       if (err instanceof AxiosError) {
-        console.log('Error during token refresh', err.response?.data?.message);
-        console.log('Error during token refresh', err);
+        console.log(
+          'Error during token refresh in init:',
+          err.response?.data?.message
+        );
+        // console.log('Error during token refresh in init', err);
         const errorMsg = err?.response?.data?.message;
-        console.log('Error during session check', errorMsg);
+        console.log('Error during session check in init:', errorMsg);
         if (
           errorMsg === 'No session found' ||
           errorMsg === 'Invalid session' ||
@@ -85,6 +88,8 @@ export const useAuth = create<AuthState>((set, get) => ({
           initialized: true,
         });
       }
+    } finally {
+      set({ isLoading: false });
     }
   },
 
@@ -98,15 +103,16 @@ export const useAuth = create<AuthState>((set, get) => ({
         {},
         { withCredentials: true }
       );
-      // console.log('Refresh successful:', res.data);
+      console.log('Refresh successful:', res.data);
 
       await get().init(); // optional
     } catch (error: unknown) {
+      // console.log('instanceof error in refreshToken', error);
       if (error instanceof AxiosError) {
         const msg = error.response?.data?.message;
-        console.log('Error during token refresh:', msg);
+        console.log('Error during token refresh in refreshToken:', msg);
 
-        if (msg === '"No refresh token provided') {
+        if (msg === 'No refresh token provided') {
           console.log('No refresh token — stop further calls');
           return; // 🚫 prevent further attempts
         }
