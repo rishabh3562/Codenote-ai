@@ -1,14 +1,11 @@
+import dotenv from 'dotenv';
+dotenv.config();
+const isProd = process.env.NODE_ENV === 'production';
+console.log(process.env.NODE_ENV);
+console.log(isProd);
 export const cookieConfig = {
-  // httpOnly: true,
-  // // In production you’ll likely need secure cookies and sameSite 'none' (if different domains are involved)
-  // secure: true,
-  // // sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
-  // sameSite: 'None',
+  httpOnly: true,
+  secure: isProd,
+  sameSite: isProd ? 'None' : 'Lax',
   maxAge: 7 * 24 * 60 * 60 * 1000,
 };
-// export const cookieConfig = {
-//   httpOnly: true,
-//   secure: process.env.NODE_ENV === 'production',
-//   sameSite: 'strict',
-//   maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
-// };

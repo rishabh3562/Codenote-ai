@@ -42,7 +42,7 @@ app.use(cookieParser());
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
-
+// console.log(process.env.NODE_ENV)
 // Rate limiting
 // app.use('/api', apiLimiter);
 app.get('/health', (req, res) => {
