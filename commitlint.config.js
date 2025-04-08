@@ -4,12 +4,22 @@ export default {
     'type-enum': [
       2,
       'always',
-      ['feat', 'fix', 'chore', 'docs', 'style', 'refactor', 'test', 'ui'], // Custom types
+      [
+        'feat',
+        'fix',
+        'chore',
+        'docs',
+        'style',
+        'refactor',
+        'test',
+        'ui',
+        'deploy',
+      ], // Custom types
     ],
     'scope-enum': [
       1, // Warning level for scope
       'always',
-      ['auth', 'button', 'ui', 'format'], // Custom scopes
+      ['auth', 'button', 'ui', 'format', 'fix', 'test'], // Custom scopes
     ],
     'subject-max-length': [2, 'always', 72], // Subject length limit
     'scope-case': [2, 'always', 'lower-case'], // Ensure lowercase scopes
