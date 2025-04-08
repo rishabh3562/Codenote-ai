@@ -3,7 +3,8 @@ export const APP_NAME = 'CodeNote.ai';
 export const APP_DESCRIPTION = 'AI-Powered Code Analysis';
 
 // API endpoints and configuration
-export const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+export const API_BASE_URL =
+  import.meta.env.VITE_API_URL || 'http://localhost:3000';
 export const GITHUB_API_URL = 'https://api.github.com';
 
 // Chart colors

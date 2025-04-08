@@ -1,4 +1,4 @@
-import  apiClient  from '@/services/api/client';
+import apiClient from '@/services/api/client';
 import { API_ENDPOINTS } from '@/config/api';
 import type { User } from '@/types';
 
@@ -14,7 +14,7 @@ interface RegisterData {
 
 export const authService = {
   async login(email: string, password: string): Promise<LoginResponse> {
-    console.log("Sending Login Request:", { email, password });
+    console.log('Sending Login Request:', { email, password });
     const response = await apiClient.post<LoginResponse>(
       API_ENDPOINTS.auth.login,
       { email, password }

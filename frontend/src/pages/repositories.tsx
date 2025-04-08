@@ -32,8 +32,10 @@ export function RepositoriesPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [filter, setFilter] = useState('all');
 
-  const filteredRepos = DUMMY_REPOS.filter(repo => {
-    const matchesSearch = repo.name.toLowerCase().includes(searchQuery.toLowerCase());
+  const filteredRepos = DUMMY_REPOS.filter((repo) => {
+    const matchesSearch = repo.name
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase());
     if (filter === 'all') return matchesSearch;
     return matchesSearch && repo.status.toLowerCase() === filter.toLowerCase();
   });
@@ -43,10 +45,7 @@ export function RepositoriesPage() {
       <PageHeader
         title="Repositories"
         description="Manage and analyze your GitHub repositories"
-        breadcrumbs={[
-          { name: 'Home', href: '/' },
-          { name: 'Repositories' },
-        ]}
+        breadcrumbs={[{ name: 'Home', href: '/' }, { name: 'Repositories' }]}
       >
         <Button>
           <Plus className="h-4 w-4 mr-2" />
@@ -88,12 +87,14 @@ export function RepositoriesPage() {
             title="No repositories found"
             description={
               searchQuery
-                ? "No repositories match your search criteria"
-                : "Add your first repository to get started"
+                ? 'No repositories match your search criteria'
+                : 'Add your first repository to get started'
             }
             action={{
-              label: "Add Repository",
-              onClick: () => {/* Add repository logic */}
+              label: 'Add Repository',
+              onClick: () => {
+                /* Add repository logic */
+              },
             }}
           />
         )}

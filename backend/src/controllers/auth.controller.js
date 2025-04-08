@@ -7,11 +7,11 @@ import logger from '../config/logger.js';
 
 const generateTokens = (userId) => ({
   accessToken: jwt.sign({ id: userId }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRES_IN || '15m'
+    expiresIn: process.env.JWT_EXPIRES_IN || '15m',
   }),
   refreshToken: jwt.sign({ id: userId }, process.env.JWT_REFRESH_SECRET, {
-    expiresIn: process.env.JWT_REFRESH_EXPIRES_IN || '7d'
-  })
+    expiresIn: process.env.JWT_REFRESH_EXPIRES_IN || '7d',
+  }),
 });
 
 export const register = asyncHandler(async (req, res) => {
@@ -31,7 +31,7 @@ export const register = asyncHandler(async (req, res) => {
   const user = await User.create({
     name,
     email,
-    password
+    password,
   });
 
   const { accessToken, refreshToken } = generateTokens(user._id);
@@ -40,7 +40,7 @@ export const register = asyncHandler(async (req, res) => {
   res.cookie('accessToken', accessToken, cookieConfig);
   res.cookie('refreshToken', refreshToken, {
     ...cookieConfig,
-    path: '/api/auth/refresh'
+    path: '/api/auth/refresh',
   });
 
   logger.info(`New user registered: ${user._id}`);
@@ -50,8 +50,8 @@ export const register = asyncHandler(async (req, res) => {
       id: user._id,
       name: user.name,
       email: user.email,
-      avatarUrl: user.avatarUrl
-    }
+      avatarUrl: user.avatarUrl,
+    },
   });
 });
 
@@ -70,8 +70,8 @@ export const login = asyncHandler(async (req, res) => {
   }
 
   const { accessToken, refreshToken } = generateTokens(user._id);
-  console.log("accessToken", accessToken)
-  console.log("refresh", refreshToken)
+  console.log('accessToken', accessToken);
+  console.log('refresh', refreshToken);
   // Set secure cookies
   res.cookie('accessToken', accessToken, cookieConfig);
   res.cookie('refreshToken', refreshToken, {
@@ -86,8 +86,8 @@ export const login = asyncHandler(async (req, res) => {
       id: user._id,
       name: user.name,
       email: user.email,
-      avatarUrl: user.avatarUrl
-    }
+      avatarUrl: user.avatarUrl,
+    },
   });
 });
 
@@ -97,7 +97,7 @@ export const logout = asyncHandler(async (req, res) => {
   res.cookie('refreshToken', '', {
     ...cookieConfig,
     path: '/api/auth/refresh',
-    maxAge: 0
+    maxAge: 0,
   });
 
   logger.info(`User logged out: ${req.user?._id}`);
@@ -127,7 +127,7 @@ export const refresh = asyncHandler(async (req, res) => {
     res.cookie('accessToken', tokens.accessToken, cookieConfig);
     res.cookie('refreshToken', tokens.refreshToken, {
       ...cookieConfig,
-      path: '/api/auth/refresh'
+      path: '/api/auth/refresh',
     });
 
     logger.info(`Token refreshed for user: ${user._id}`);
@@ -137,8 +137,8 @@ export const refresh = asyncHandler(async (req, res) => {
         id: user._id,
         name: user.name,
         email: user.email,
-        avatarUrl: user.avatarUrl
-      }
+        avatarUrl: user.avatarUrl,
+      },
     });
   } catch (error) {
     res.status(401);
@@ -166,8 +166,17 @@ export const session = asyncHandler(async (req, res) => {
       return res.status(401).json({ message: 'User not found' });
     }
 
-    res.json({ user: { id: user._id, name: user.name, email: user.email, avatarUrl: user.avatarUrl } });
+    res.json({
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        avatarUrl: user.avatarUrl,
+      },
+    });
   } catch (error) {
-    return res.status(401).json({ message: 'Invalid session', error: error.message });
+    return res
+      .status(401)
+      .json({ message: 'Invalid session', error: error.message });
   }
 });

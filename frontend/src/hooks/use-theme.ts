@@ -9,12 +9,14 @@ export function useTheme() {
       const stored = localStorage.getItem('theme');
       if (stored === 'light' || stored === 'dark') return stored;
     }
-    
+
     // Then check system preference
     if (typeof window !== 'undefined' && window.matchMedia) {
-      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      return window.matchMedia('(prefers-color-scheme: dark)').matches
+        ? 'dark'
+        : 'light';
     }
-    
+
     // Default to light if nothing else is available
     return 'light';
   });

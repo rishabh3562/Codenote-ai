@@ -43,6 +43,7 @@ export function getChartConfig(type: 'area' | 'bar' | 'line' | 'pie') {
 export function formatChartData(data: any[], key: string) {
   return data.map((item) => ({
     ...item,
-    [key]: typeof item[key] === 'number' ? item[key].toLocaleString() : item[key],
+    [key]:
+      typeof item[key] === 'number' ? item[key].toLocaleString() : item[key],
   }));
 }

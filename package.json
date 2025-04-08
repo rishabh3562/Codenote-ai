@@ -1,0 +1,36 @@
+{
+  "name": "codenote-ai",
+  "version": "1.0.0",
+  "description": "This project is designed to analyze code repositories, generate accurate and structured documentation, and create context summaries for code flow.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "prepare": "husky install",
+    "lint": "eslint --fix .",
+    "lint:check": "eslint . --no-fix --quiet=false",
+    "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
+    "lint:quiet": "eslint . --ext .js,.jsx,.ts,.tsx --quiet",
+    "lint:no-fix": "eslint . --ext .js,.jsx,.ts,.tsx --no-fix",
+    "prettier:check": "prettier --check .",
+    "prettier:fix": "prettier --write .",
+    "prettier:quiet": "prettier --check . --quiet",
+    "lint:staged": "lint-staged",
+    "commitmsg": "commitlint -E HUSKY_GIT_PARAMS"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@commitlint/cli": "^19.6.1",
+    "@commitlint/config-conventional": "^19.6.0",
+    "@eslint/eslintrc": "^3.2.0",
+    "@eslint/js": "^9.18.0",
+    "eslint": "^9.18.0",
+    "eslint-config-prettier": "^10.0.1",
+    "eslint-plugin-prettier": "^5.2.3",
+    "globals": "^15.14.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.4.1",
+    "prettier": "^3.4.2"
+  }
+}

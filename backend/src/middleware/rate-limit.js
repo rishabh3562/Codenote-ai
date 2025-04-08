@@ -12,7 +12,7 @@ export const apiLimiter = rateLimit({
       message: 'Too many requests from this IP, please try again later',
       retryAfter: Math.ceil(req.rateLimit.resetTime / 1000),
     });
-  }
+  },
 });
 
 // Stricter limit for analysis endpoints
@@ -26,7 +26,7 @@ export const analysisLimiter = rateLimit({
       message: 'Analysis rate limit exceeded, please try again later',
       retryAfter: Math.ceil(req.rateLimit.resetTime / 1000),
     });
-  }
+  },
 });
 
 // GitHub API rate limit
@@ -40,5 +40,5 @@ export const githubLimiter = rateLimit({
       message: 'GitHub API rate limit exceeded, please try again later',
       retryAfter: Math.ceil(req.rateLimit.resetTime / 1000),
     });
-  }
+  },
 });

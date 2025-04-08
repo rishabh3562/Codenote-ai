@@ -19,7 +19,10 @@ export function handleApiError(error: unknown): never {
 
   if (axios.isAxiosError(error)) {
     const apiError: ApiError = {
-      message: error.response?.data?.message || error.message || 'An unexpected error occurred',
+      message:
+        error.response?.data?.message ||
+        error.message ||
+        'An unexpected error occurred',
       code: error.response?.data?.code || 'UNKNOWN_ERROR',
       status: error.response?.status || 500,
       details: error.response?.data?.details,
@@ -28,7 +31,8 @@ export function handleApiError(error: unknown): never {
   }
 
   throw new ApiException({
-    message: error instanceof Error ? error.message : 'An unexpected error occurred',
+    message:
+      error instanceof Error ? error.message : 'An unexpected error occurred',
     code: 'UNKNOWN_ERROR',
     status: 500,
   });

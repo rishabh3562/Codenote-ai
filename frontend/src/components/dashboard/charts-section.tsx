@@ -38,7 +38,11 @@ interface ChartsProps {
   activityData: ActivityData[];
 }
 
-export function ChartsSection({ fileTypes, modifiedFiles, activityData }: ChartsProps) {
+export function ChartsSection({
+  fileTypes,
+  modifiedFiles,
+  activityData,
+}: ChartsProps) {
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 mt-4">
       <Card>

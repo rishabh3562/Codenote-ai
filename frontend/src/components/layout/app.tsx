@@ -9,26 +9,29 @@ import { Navbar } from '@/components/layout/navbar';
 import { Sidebar } from '@/components/layout/sidebar';
 
 export function App() {
-    const { init, isLoading, isAuthenticated } = useAuth();
+  const { init, isLoading, isAuthenticated } = useAuth();
 
-    useEffect(() => {
-        init();
-    }, [init]);
+  useEffect(() => {
+    init();
+  }, [init]);
 
-    if (isLoading) {
-        return <div>Loading...</div>;
-    }
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
-    return (
-        <Router>
-            <Navbar />
-            <Sidebar />
-            <Routes>
-                <Route path="/" element={<LandingPage />} />
-                <Route path="/login" element={<LoginPage />} />
-                <Route path="/signup" element={<SignupPage />} />
-                <Route path="/dashboard" element={isAuthenticated ? <DashboardPage /> : <LoginPage />} />
-            </Routes>
-        </Router>
-    );
+  return (
+    <Router>
+      <Navbar />
+      <Sidebar />
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} />
+        <Route
+          path="/dashboard"
+          element={isAuthenticated ? <DashboardPage /> : <LoginPage />}
+        />
+      </Routes>
+    </Router>
+  );
 }

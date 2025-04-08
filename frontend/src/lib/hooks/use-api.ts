@@ -1,4 +1,9 @@
-import { useQuery, useMutation, UseQueryOptions, UseMutationOptions } from '@tanstack/react-query';
+import {
+  useQuery,
+  useMutation,
+  UseQueryOptions,
+  UseMutationOptions,
+} from '@tanstack/react-query';
 import { handleApiError } from '@/lib/api/error';
 import type { ApiError } from '@/types';
 
@@ -20,7 +25,11 @@ export function useApiQuery<TData = unknown, TError = ApiError>(
   });
 }
 
-export function useApiMutation<TData = unknown, TVariables = unknown, TError = ApiError>(
+export function useApiMutation<
+  TData = unknown,
+  TVariables = unknown,
+  TError = ApiError,
+>(
   mutationFn: (variables: TVariables) => Promise<TData>,
   options?: UseMutationOptions<TData, TError, TVariables>
 ) {

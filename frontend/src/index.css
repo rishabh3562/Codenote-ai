@@ -3,7 +3,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
- 
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -27,7 +27,7 @@
     --ring: 221.2 83.2% 53.3%;
     --radius: 0.5rem;
   }
- 
+
   .dark {
     --background: 224 71% 4%;
     --foreground: 213 31% 91%;
@@ -62,7 +62,7 @@
   .hover-highlight {
     @apply transition-all duration-200;
   }
-  
+
   .hover-highlight:hover {
     @apply bg-accent/50;
   }

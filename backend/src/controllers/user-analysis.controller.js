@@ -2,8 +2,9 @@ import asyncHandler from 'express-async-handler';
 import UserAnalysis from '../models/UserAnalysis.js';
 
 export const getUserAnalysis = asyncHandler(async (req, res) => {
-  const analysis = await UserAnalysis.findOne({ userId: req.user._id })
-    .sort('-createdAt');
+  const analysis = await UserAnalysis.findOne({ userId: req.user._id }).sort(
+    '-createdAt'
+  );
 
   if (!analysis) {
     res.status(404);
@@ -24,7 +25,20 @@ export const generateUserAnalysis = asyncHandler(async (req, res) => {
       avgDailyActivity: parseFloat((Math.random() * 5 + 2).toFixed(1)),
     },
     contributionData: Array.from({ length: 12 }, (_, i) => ({
-      month: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][i],
+      month: [
+        'Jan',
+        'Feb',
+        'Mar',
+        'Apr',
+        'May',
+        'Jun',
+        'Jul',
+        'Aug',
+        'Sep',
+        'Oct',
+        'Nov',
+        'Dec',
+      ][i],
       commits: Math.floor(Math.random() * 200) + 50,
     })),
     languageStats: [

@@ -10,7 +10,11 @@ interface FileSelectionProps {
   onFileSelect: (path: string) => void;
 }
 
-export function FileSelection({ files, selectedFiles, onFileSelect }: FileSelectionProps) {
+export function FileSelection({
+  files,
+  selectedFiles,
+  onFileSelect,
+}: FileSelectionProps) {
   const renderNode = (node: FileNode, path: string = '') => {
     const currentPath = `${path}/${node.name}`;
 
@@ -33,7 +37,9 @@ export function FileSelection({ files, selectedFiles, onFileSelect }: FileSelect
             <File className="h-4 w-4 mr-2 text-muted-foreground" />
             <span className="flex-1 truncate">{node.name}</span>
             {node.size && (
-              <span className="text-sm text-muted-foreground ml-2">{node.size}</span>
+              <span className="text-sm text-muted-foreground ml-2">
+                {node.size}
+              </span>
             )}
           </label>
         </div>

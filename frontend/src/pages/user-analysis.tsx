@@ -58,7 +58,20 @@ interface UserData {
 
 const generateDummyData = (username: string): UserData => ({
   contributionData: Array.from({ length: 12 }, (_, i) => ({
-    month: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][i],
+    month: [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
+    ][i],
     commits: Math.floor(Math.random() * 200) + 50,
   })),
   languageStats: [
@@ -113,7 +126,7 @@ export function UserAnalysisPage() {
     setIsLoading(true);
     try {
       // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      await new Promise((resolve) => setTimeout(resolve, 2000));
       const data = generateDummyData(username);
       setUserData(data);
       setSearchedUser(username);
@@ -172,8 +185,10 @@ export function UserAnalysisPage() {
 
           {userData && (
             <div className="space-y-6">
-              <h2 className="text-3xl font-bold">Analysis for @{searchedUser}</h2>
-              
+              <h2 className="text-3xl font-bold">
+                Analysis for @{searchedUser}
+              </h2>
+
               <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
                 <MetricCard
                   title="Total Commits"
@@ -238,7 +253,10 @@ export function UserAnalysisPage() {
                           dataKey="value"
                         >
                           {userData.languageStats.map((entry, index) => (
-                            <Cell key={entry.name} fill={COLORS[index % COLORS.length]} />
+                            <Cell
+                              key={entry.name}
+                              fill={COLORS[index % COLORS.length]}
+                            />
                           ))}
                         </Pie>
                         <Tooltip />
@@ -256,7 +274,12 @@ export function UserAnalysisPage() {
                     <ResponsiveContainer width="100%" height="100%">
                       <BarChart data={userData.repoStats}>
                         <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="name" angle={-45} textAnchor="end" height={100} />
+                        <XAxis
+                          dataKey="name"
+                          angle={-45}
+                          textAnchor="end"
+                          height={100}
+                        />
                         <YAxis />
                         <Tooltip />
                         <Legend />
@@ -299,7 +322,10 @@ export function UserAnalysisPage() {
                 <CardContent>
                   <div className="h-[100px]">
                     <ResponsiveContainer width="100%" height="100%">
-                      <BarChart data={userData.activityHeatmap} margin={{ top: 0, right: 0, bottom: 0, left: 0 }}>
+                      <BarChart
+                        data={userData.activityHeatmap}
+                        margin={{ top: 0, right: 0, bottom: 0, left: 0 }}
+                      >
                         <Tooltip />
                         <Bar dataKey="contributions" fill="#3b82f6">
                           {userData.activityHeatmap.map((entry, index) => (
@@ -407,7 +433,10 @@ function PersonalAnalysis() {
                   dataKey="value"
                 >
                   {DUMMY_LANGUAGE_STATS.map((entry, index) => (
-                    <Cell key={entry.name} fill={COLORS[index % COLORS.length]} />
+                    <Cell
+                      key={entry.name}
+                      fill={COLORS[index % COLORS.length]}
+                    />
                   ))}
                 </Pie>
                 <Tooltip />

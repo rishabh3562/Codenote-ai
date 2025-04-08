@@ -1,7 +1,17 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line } from 'recharts';
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  LineChart,
+  Line,
+} from 'recharts';
 import { FileCode, GitBranch, GitCommit, GitPullRequest } from 'lucide-react';
 
 const DUMMY_REPO_METRICS = {
@@ -38,7 +48,9 @@ export function RepositoryStatsPage() {
             <FileCode className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{DUMMY_REPO_METRICS.totalFiles}</div>
+            <div className="text-2xl font-bold">
+              {DUMMY_REPO_METRICS.totalFiles}
+            </div>
           </CardContent>
         </Card>
 
@@ -48,7 +60,9 @@ export function RepositoryStatsPage() {
             <GitBranch className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{DUMMY_REPO_METRICS.branches}</div>
+            <div className="text-2xl font-bold">
+              {DUMMY_REPO_METRICS.branches}
+            </div>
           </CardContent>
         </Card>
 
@@ -58,7 +72,9 @@ export function RepositoryStatsPage() {
             <GitCommit className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{DUMMY_REPO_METRICS.commits}</div>
+            <div className="text-2xl font-bold">
+              {DUMMY_REPO_METRICS.commits}
+            </div>
           </CardContent>
         </Card>
 
@@ -68,7 +84,9 @@ export function RepositoryStatsPage() {
             <GitPullRequest className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{DUMMY_REPO_METRICS.pullRequests}</div>
+            <div className="text-2xl font-bold">
+              {DUMMY_REPO_METRICS.pullRequests}
+            </div>
           </CardContent>
         </Card>
       </div>

@@ -1,6 +1,6 @@
-import { apiClient } from "./client";
-import { API_ENDPOINTS } from "@/config/api";
-import type { User, UserAnalysis } from "@/types";
+import { apiClient } from './client';
+import { API_ENDPOINTS } from '@/config/api';
+import type { User, UserAnalysis } from '@/types';
 
 export const userService = {
   async getProfile(): Promise<User> {

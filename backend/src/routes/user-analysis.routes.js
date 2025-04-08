@@ -1,7 +1,7 @@
 import express from 'express';
 import {
   getUserAnalysis,
-  generateUserAnalysis
+  generateUserAnalysis,
 } from '../controllers/user-analysis.controller.js';
 import { protect } from '../middleware/auth.js';
 

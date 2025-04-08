@@ -4,7 +4,7 @@ import {
   getRepository,
   createRepository,
   updateRepository,
-  deleteRepository
+  deleteRepository,
 } from '../controllers/repository.controller.js';
 import { protect } from '../middleware/auth.js';
 
@@ -12,11 +12,10 @@ const router = express.Router();
 
 router.use(protect);
 
-router.route('/')
-  .get(getRepositories)
-  .post(createRepository);
+router.route('/').get(getRepositories).post(createRepository);
 
-router.route('/:id')
+router
+  .route('/:id')
   .get(getRepository)
   .put(updateRepository)
   .delete(deleteRepository);

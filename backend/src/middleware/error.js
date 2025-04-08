@@ -3,7 +3,7 @@ import logger from '../config/logger.js';
 export const errorHandler = (err, req, res, next) => {
   // Get status code from response or default to 500
   const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
-  
+
   // Log error details
   logger.error({
     message: err.message,
@@ -13,7 +13,7 @@ export const errorHandler = (err, req, res, next) => {
     ip: req.ip,
     userId: req.user?._id,
     requestId: req.id,
-    timestamp: new Date().toISOString()
+    timestamp: new Date().toISOString(),
   });
 
   // Send error response
@@ -24,7 +24,7 @@ export const errorHandler = (err, req, res, next) => {
     status: statusCode,
     ...(process.env.NODE_ENV === 'development' && {
       stack: err.stack,
-      details: err.details
-    })
+      details: err.details,
+    }),
   });
 };

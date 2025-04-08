@@ -28,12 +28,12 @@ export function RepoCard({ id, name, lastUpdated, status }: RepoCardProps) {
         <h3 className="text-lg font-semibold">{name}</h3>
         {getStatusIcon()}
       </div>
-      
+
       <div className="flex items-center text-sm text-muted-foreground mb-4">
         <Clock className="h-4 w-4 mr-1" />
         <span>Last updated: {lastUpdated}</span>
       </div>
-      
+
       <div className="flex justify-end space-x-2">
         <Link to={`/repository/${id}`}>
           <Button variant="outline" size="sm">

@@ -11,7 +11,9 @@ export interface ChartConfig {
   };
 }
 
-export function getChartConfig(type: 'area' | 'bar' | 'line' | 'pie'): ChartConfig {
+export function getChartConfig(
+  type: 'area' | 'bar' | 'line' | 'pie'
+): ChartConfig {
   const baseConfig = {
     width: '100%',
     height: 300,
@@ -49,8 +51,9 @@ export function formatChartData<T extends Record<string, any>>(
   data: T[],
   key: keyof T
 ): T[] {
-  return data.map(item => ({
+  return data.map((item) => ({
     ...item,
-    [key]: typeof item[key] === 'number' ? item[key].toLocaleString() : item[key],
+    [key]:
+      typeof item[key] === 'number' ? item[key].toLocaleString() : item[key],
   }));
 }

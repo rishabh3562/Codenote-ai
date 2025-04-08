@@ -1,6 +1,11 @@
 import React from 'react';
 import { FileNode } from './file-explorer';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Brain, Code2, GitBranch, Shield } from 'lucide-react';
@@ -42,8 +47,8 @@ export function AIAnalysisModal({
                   <h3 className="font-semibold">Code Quality</h3>
                 </div>
                 <p className="text-sm text-muted-foreground">
-                  The code follows good practices but could benefit from better error handling
-                  and type safety improvements.
+                  The code follows good practices but could benefit from better
+                  error handling and type safety improvements.
                 </p>
               </div>
 
@@ -53,8 +58,8 @@ export function AIAnalysisModal({
                   <h3 className="font-semibold">Architecture</h3>
                 </div>
                 <p className="text-sm text-muted-foreground">
-                  Component structure is well-organized. Consider implementing the
-                  repository pattern for better data management.
+                  Component structure is well-organized. Consider implementing
+                  the repository pattern for better data management.
                 </p>
               </div>
 

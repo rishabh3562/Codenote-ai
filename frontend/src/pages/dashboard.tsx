@@ -81,15 +81,18 @@ const DUMMY_COMPLEX_FILES = [
 const DUMMY_AI_INSIGHTS = [
   {
     title: 'Code Duplication Detected',
-    description: 'Found similar authentication logic in multiple components. Consider extracting to a shared hook.',
+    description:
+      'Found similar authentication logic in multiple components. Consider extracting to a shared hook.',
   },
   {
     title: 'Performance Optimization',
-    description: 'Large component re-renders detected in DataGrid. Implement React.memo or useMemo for better performance.',
+    description:
+      'Large component re-renders detected in DataGrid. Implement React.memo or useMemo for better performance.',
   },
   {
     title: 'Security Enhancement',
-    description: 'API endpoints lack proper error handling. Consider implementing a global error boundary.',
+    description:
+      'API endpoints lack proper error handling. Consider implementing a global error boundary.',
   },
 ];
 
@@ -97,10 +100,7 @@ export function DashboardPage() {
   return (
     <div className="p-6">
       <Breadcrumb
-        segments={[
-          { name: 'Home', href: '/' },
-          { name: 'Dashboard' },
-        ]}
+        segments={[{ name: 'Home', href: '/' }, { name: 'Dashboard' }]}
         className="mb-6"
       />
 
@@ -120,7 +120,7 @@ export function DashboardPage() {
           href="/repositories"
           buttonText="View Repositories"
         />
-        
+
         <div className="grid md:grid-cols-2 gap-6">
           <FeatureCta
             title="User Analysis"
@@ -129,7 +129,7 @@ export function DashboardPage() {
             href="/user-analysis"
             buttonText="Analyze Users"
           />
-          
+
           <FeatureCta
             title="AI Insights"
             description="Get personalized recommendations and insights powered by advanced AI analysis."
@@ -141,7 +141,7 @@ export function DashboardPage() {
       </div>
 
       <MetricsSection {...DUMMY_METRICS} />
-      
+
       <ChartsSection
         fileTypes={DUMMY_FILE_TYPES}
         modifiedFiles={DUMMY_MODIFIED_FILES}

@@ -2,7 +2,13 @@ import React, { useState } from 'react';
 import { PageHeader } from '@/components/layout/page-header';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent } from '@/components/ui/card';
-import { GitPullRequest, Search, MessageSquare, GitCommit, Clock } from 'lucide-react';
+import {
+  GitPullRequest,
+  Search,
+  MessageSquare,
+  GitCommit,
+  Clock,
+} from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { EmptyState } from '@/components/ui/empty-state';
 import { Badge } from '@/components/ui/badge';
@@ -44,15 +50,18 @@ const DUMMY_PRS: PullRequest[] = [
 export function PullRequestsPage() {
   const [searchQuery, setSearchQuery] = useState('');
 
-  const filteredPRs = DUMMY_PRS.filter(pr =>
+  const filteredPRs = DUMMY_PRS.filter((pr) =>
     pr.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   const getStatusColor = (status: PullRequest['status']) => {
     switch (status) {
-      case 'open': return 'bg-green-500/10 text-green-500';
-      case 'closed': return 'bg-red-500/10 text-red-500';
-      case 'merged': return 'bg-purple-500/10 text-purple-500';
+      case 'open':
+        return 'bg-green-500/10 text-green-500';
+      case 'closed':
+        return 'bg-red-500/10 text-red-500';
+      case 'merged':
+        return 'bg-purple-500/10 text-purple-500';
     }
   };
 
@@ -61,10 +70,7 @@ export function PullRequestsPage() {
       <PageHeader
         title="Pull Requests"
         description="Review and manage pull requests"
-        breadcrumbs={[
-          { name: 'Home', href: '/' },
-          { name: 'Pull Requests' },
-        ]}
+        breadcrumbs={[{ name: 'Home', href: '/' }, { name: 'Pull Requests' }]}
       />
 
       <div className="flex items-center gap-4 mb-6">
@@ -129,12 +135,14 @@ export function PullRequestsPage() {
           title="No pull requests found"
           description={
             searchQuery
-              ? "No pull requests match your search criteria"
-              : "Create your first pull request to get started"
+              ? 'No pull requests match your search criteria'
+              : 'Create your first pull request to get started'
           }
           action={{
-            label: "Create Pull Request",
-            onClick: () => {/* Create PR logic */}
+            label: 'Create Pull Request',
+            onClick: () => {
+              /* Create PR logic */
+            },
           }}
         />
       )}

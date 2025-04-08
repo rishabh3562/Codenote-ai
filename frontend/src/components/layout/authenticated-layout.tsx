@@ -1,7 +1,7 @@
 import React from 'react';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import { Sidebar } from './sidebar';
-import { useAuth } from '@/lib/auth'
+import { useAuth } from '@/lib/auth';
 export function AuthenticatedLayout() {
   const { isAuthenticated, user } = useAuth();
 

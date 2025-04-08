@@ -1,13 +1,13 @@
-import { Button } from "@/components/ui/button"
-import { FolderOpen } from "lucide-react"
+import { Button } from '@/components/ui/button';
+import { FolderOpen } from 'lucide-react';
 
 interface EmptyStateProps {
-  title: string
-  description: string
+  title: string;
+  description: string;
   action?: {
-    label: string
-    onClick: () => void
-  }
+    label: string;
+    onClick: () => void;
+  };
 }
 
 export function EmptyState({ title, description, action }: EmptyStateProps) {
@@ -26,5 +26,5 @@ export function EmptyState({ title, description, action }: EmptyStateProps) {
         </Button>
       )}
     </div>
-  )
+  );
 }

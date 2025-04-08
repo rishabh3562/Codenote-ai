@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
-import { FileExplorer, type FileNode } from '@/components/repository/file-explorer';
+import {
+  FileExplorer,
+  type FileNode,
+} from '@/components/repository/file-explorer';
 import { FileSelection } from '@/components/repository/file-selection';
 import { FileInsights } from '@/components/repository/file-insights';
 import { AIAnalysisModal } from '@/components/repository/ai-analysis-modal';
@@ -93,7 +96,8 @@ const DUMMY_AI_INSIGHTS: AIFileInsight[] = [
     functions: [
       {
         name: 'Button',
-        description: 'A polymorphic button component that supports various styles and states',
+        description:
+          'A polymorphic button component that supports various styles and states',
         props: ['variant', 'size', 'disabled', 'children'],
         returns: 'ReactElement',
       },
@@ -238,7 +242,10 @@ export function RepositoryPage() {
       <AIAnalysisModal
         isOpen={showAnalysisModal}
         onClose={() => setShowAnalysisModal(false)}
-        selectedFiles={Array.from(selectedFiles).map((path) => ({ name: path, type: 'file' }))}
+        selectedFiles={Array.from(selectedFiles).map((path) => ({
+          name: path,
+          type: 'file',
+        }))}
         isAnalyzing={isAnalyzing}
       />
     </div>

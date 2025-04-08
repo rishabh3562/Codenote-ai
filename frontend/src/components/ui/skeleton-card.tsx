@@ -1,5 +1,5 @@
-import { Card, CardContent, CardHeader } from "@/components/ui/card"
-import { Skeleton } from "@/components/ui/skeleton"
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import { Skeleton } from '@/components/ui/skeleton';
 
 export function SkeletonCard() {
   return (
@@ -12,7 +12,7 @@ export function SkeletonCard() {
         <Skeleton className="h-[250px] w-[250px] rounded-full" />
       </CardContent>
     </Card>
-  )
+  );
 }
 
 export function SkeletonMetricCard() {
@@ -26,5 +26,5 @@ export function SkeletonMetricCard() {
         <Skeleton className="h-8 w-[80px]" />
       </CardContent>
     </Card>
-  )
+  );
 }

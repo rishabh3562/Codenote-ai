@@ -40,7 +40,7 @@ export const fetchRepositoryContent = async (owner, repo, path = '') => {
     });
 
     if (Array.isArray(data)) {
-      return data.map(item => ({
+      return data.map((item) => ({
         name: item.name,
         path: item.path,
         type: item.type,
@@ -100,7 +100,7 @@ export const fetchUserStats = async (username) => {
     ]);
 
     const languages = new Map();
-    const languagePromises = repos.data.map(repo =>
+    const languagePromises = repos.data.map((repo) =>
       octokit.repos.listLanguages({
         owner: username,
         repo: repo.name,
@@ -108,7 +108,7 @@ export const fetchUserStats = async (username) => {
     );
 
     const languageResults = await Promise.all(languagePromises);
-    languageResults.forEach(result => {
+    languageResults.forEach((result) => {
       Object.entries(result.data).forEach(([lang, bytes]) => {
         languages.set(lang, (languages.get(lang) || 0) + bytes);
       });

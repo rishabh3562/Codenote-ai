@@ -1,7 +1,14 @@
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Brain, Code2, GitBranch, Loader2, AlertTriangle, CheckCircle } from 'lucide-react';
+import {
+  Brain,
+  Code2,
+  GitBranch,
+  Loader2,
+  AlertTriangle,
+  CheckCircle,
+} from 'lucide-react';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { PageHeader } from '@/components/layout/page-header';
 import { useToast } from '@/components/ui/use-toast';
@@ -45,7 +52,7 @@ export function AIInsightsPage() {
 
     setIsAnalyzing(true);
     // Simulated API call
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    await new Promise((resolve) => setTimeout(resolve, 2000));
 
     // Dummy analysis result
     setAnalysis({
@@ -54,47 +61,47 @@ export function AIInsightsPage() {
         issues: [
           'Inconsistent error handling patterns',
           'Some functions lack proper TypeScript types',
-          'Missing input validation in form handlers'
+          'Missing input validation in form handlers',
         ],
         suggestions: [
           'Implement consistent error handling using try/catch blocks',
           'Add TypeScript interfaces for all function parameters',
-          'Add input validation using Zod or similar libraries'
-        ]
+          'Add input validation using Zod or similar libraries',
+        ],
       },
       complexity: {
         score: 75,
         details: [
           'Multiple nested conditional statements',
           'Complex state management logic',
-          'Long function bodies could be split into smaller functions'
-        ]
+          'Long function bodies could be split into smaller functions',
+        ],
       },
       security: {
         score: 90,
         vulnerabilities: [
           'Potential XSS vulnerability in rendered content',
-          'Unsanitized user input in API calls'
+          'Unsanitized user input in API calls',
         ],
         recommendations: [
           'Use DOMPurify for user-generated content',
-          'Implement input sanitization for all API parameters'
-        ]
+          'Implement input sanitization for all API parameters',
+        ],
       },
       performance: {
         score: 80,
         optimizations: [
           'Implement React.memo for expensive components',
           'Add proper dependency arrays to useEffect hooks',
-          'Consider using virtualization for long lists'
-        ]
-      }
+          'Consider using virtualization for long lists',
+        ],
+      },
     });
 
     setIsAnalyzing(false);
     toast({
       title: 'Analysis Complete',
-      description: 'Your code has been analyzed successfully'
+      description: 'Your code has been analyzed successfully',
     });
   };
 
@@ -109,10 +116,7 @@ export function AIInsightsPage() {
       <PageHeader
         title="AI Code Analysis"
         description="Get instant feedback and suggestions for your code"
-        breadcrumbs={[
-          { name: 'Home', href: '/' },
-          { name: 'AI Insights' }
-        ]}
+        breadcrumbs={[{ name: 'Home', href: '/' }, { name: 'AI Insights' }]}
       />
 
       <div className="grid gap-6">
@@ -244,12 +248,14 @@ export function AIInsightsPage() {
                       Vulnerabilities
                     </h3>
                     <ul className="space-y-2 text-sm">
-                      {analysis.security.vulnerabilities.map((vulnerability, index) => (
-                        <li key={index} className="flex items-start gap-2">
-                          <span className="text-red-500">•</span>
-                          {vulnerability}
-                        </li>
-                      ))}
+                      {analysis.security.vulnerabilities.map(
+                        (vulnerability, index) => (
+                          <li key={index} className="flex items-start gap-2">
+                            <span className="text-red-500">•</span>
+                            {vulnerability}
+                          </li>
+                        )
+                      )}
                     </ul>
                   </div>
                   <div>
@@ -258,12 +264,14 @@ export function AIInsightsPage() {
                       Recommendations
                     </h3>
                     <ul className="space-y-2 text-sm">
-                      {analysis.security.recommendations.map((recommendation, index) => (
-                        <li key={index} className="flex items-start gap-2">
-                          <span className="text-green-500">•</span>
-                          {recommendation}
-                        </li>
-                      ))}
+                      {analysis.security.recommendations.map(
+                        (recommendation, index) => (
+                          <li key={index} className="flex items-start gap-2">
+                            <span className="text-green-500">•</span>
+                            {recommendation}
+                          </li>
+                        )
+                      )}
                     </ul>
                   </div>
                 </CardContent>
@@ -282,12 +290,14 @@ export function AIInsightsPage() {
                 </CardHeader>
                 <CardContent>
                   <ul className="space-y-2 text-sm">
-                    {analysis.performance.optimizations.map((optimization, index) => (
-                      <li key={index} className="flex items-start gap-2">
-                        <span className="text-primary">•</span>
-                        {optimization}
-                      </li>
-                    ))}
+                    {analysis.performance.optimizations.map(
+                      (optimization, index) => (
+                        <li key={index} className="flex items-start gap-2">
+                          <span className="text-primary">•</span>
+                          {optimization}
+                        </li>
+                      )
+                    )}
                   </ul>
                 </CardContent>
               </Card>

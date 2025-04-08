@@ -1,4 +1,3 @@
-
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
@@ -36,50 +35,56 @@ const FeatureCard = ({ icon: Icon, title, description, delay }: any) => (
 const features = [
   {
     icon: GitBranch,
-    title: "Repository Analysis",
-    description: "Deep insights into your codebase structure and patterns with AI-powered recommendations.",
+    title: 'Repository Analysis',
+    description:
+      'Deep insights into your codebase structure and patterns with AI-powered recommendations.',
   },
   {
     icon: Users,
-    title: "Developer Insights",
-    description: "Compare coding patterns across developers and teams to identify best practices.",
+    title: 'Developer Insights',
+    description:
+      'Compare coding patterns across developers and teams to identify best practices.',
   },
   {
     icon: Brain,
-    title: "AI Code Review",
-    description: "Automated code reviews with intelligent suggestions for improvements and optimizations.",
+    title: 'AI Code Review',
+    description:
+      'Automated code reviews with intelligent suggestions for improvements and optimizations.',
   },
   {
     icon: Shield,
-    title: "Security Analysis",
-    description: "Comprehensive security audits to identify and fix potential vulnerabilities.",
+    title: 'Security Analysis',
+    description:
+      'Comprehensive security audits to identify and fix potential vulnerabilities.',
   },
   {
     icon: LineChart,
-    title: "Performance Metrics",
-    description: "Detailed performance analysis with actionable optimization suggestions.",
+    title: 'Performance Metrics',
+    description:
+      'Detailed performance analysis with actionable optimization suggestions.',
   },
   {
     icon: GitPullRequest,
-    title: "PR Analytics",
-    description: "In-depth analysis of pull requests and code review patterns.",
+    title: 'PR Analytics',
+    description: 'In-depth analysis of pull requests and code review patterns.',
   },
   {
     icon: Code,
-    title: "Code Quality",
-    description: "Automated code quality checks and maintainability scoring.",
+    title: 'Code Quality',
+    description: 'Automated code quality checks and maintainability scoring.',
   },
   {
     icon: Zap,
-    title: "Real-time Updates",
-    description: "Instant notifications and updates on your repository's health.",
+    title: 'Real-time Updates',
+    description:
+      "Instant notifications and updates on your repository's health.",
   },
 ];
 
 export function LandingPage() {
   const navigate = useNavigate();
   const { login, user } = useAuth();
-  console.log("user", user)
+  console.log('user', user);
   const handleGetStarted = () => {
     if (user) {
       navigate('/dashboard'); // Redirect if logged in
@@ -87,7 +92,6 @@ export function LandingPage() {
       navigate('/login');
     }
   };
-
 
   return (
     <div className="min-h-screen bg-background">
@@ -115,8 +119,9 @@ export function LandingPage() {
               Transform Your Code with AI-Powered Insights
             </h1>
             <p className="text-lg leading-8 text-muted-foreground mb-8">
-              Elevate your development workflow with advanced code analysis, real-time insights,
-              and intelligent recommendations powered by cutting-edge AI technology.
+              Elevate your development workflow with advanced code analysis,
+              real-time insights, and intelligent recommendations powered by
+              cutting-edge AI technology.
             </p>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -125,7 +130,7 @@ export function LandingPage() {
               className="flex justify-center gap-4"
             >
               <Button size="lg" onClick={handleGetStarted}>
-                {user ? "Go to Dashboard" : "Get Started"}
+                {user ? 'Go to Dashboard' : 'Get Started'}
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
 
@@ -216,13 +221,13 @@ export function LandingPage() {
               Ready to transform your development workflow?
             </h2>
             <p className="text-lg text-muted-foreground mb-8">
-              Join thousands of developers who are already using CodeNote.ai to improve their code quality.
+              Join thousands of developers who are already using CodeNote.ai to
+              improve their code quality.
             </p>
             <Button size="lg" onClick={handleGetStarted}>
-              {user ? "Go to Dashboard" : "Get Started"}
+              {user ? 'Go to Dashboard' : 'Get Started'}
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
-
           </div>
         </div>
       </motion.div>

@@ -1,7 +1,13 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { FileNode } from '@/components/repository/file-explorer';
-import { Brain, GitCommit, GitPullRequest, AlertTriangle, Code2 } from 'lucide-react';
+import {
+  Brain,
+  GitCommit,
+  GitPullRequest,
+  AlertTriangle,
+  Code2,
+} from 'lucide-react';
 
 interface FileInsight {
   complexity: {
@@ -31,7 +37,11 @@ const DUMMY_INSIGHTS: Record<string, FileInsight> = {
       level: 'Medium',
       details: 'Moderate cyclomatic complexity due to nested routing logic',
     },
-    dependencies: ['react-router-dom', '@tanstack/react-query', 'components/Sidebar'],
+    dependencies: [
+      'react-router-dom',
+      '@tanstack/react-query',
+      'components/Sidebar',
+    ],
     suggestions: [
       'Consider splitting routing configuration into a separate file',
       'Implement lazy loading for routes to improve initial load time',
@@ -111,12 +121,18 @@ export function FileInsights({ file }: FileInsightsProps) {
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Complexity Score</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              Complexity Score
+            </CardTitle>
             <Brain className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{insights.complexity.score}</div>
-            <p className="text-xs text-muted-foreground mt-1">{insights.complexity.level} Complexity</p>
+            <div className="text-2xl font-bold">
+              {insights.complexity.score}
+            </div>
+            <p className="text-xs text-muted-foreground mt-1">
+              {insights.complexity.level} Complexity
+            </p>
           </CardContent>
         </Card>
 
@@ -126,8 +142,12 @@ export function FileInsights({ file }: FileInsightsProps) {
             <Code2 className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{insights.metrics.functions}</div>
-            <p className="text-xs text-muted-foreground mt-1">{insights.metrics.lines} Lines of Code</p>
+            <div className="text-2xl font-bold">
+              {insights.metrics.functions}
+            </div>
+            <p className="text-xs text-muted-foreground mt-1">
+              {insights.metrics.lines} Lines of Code
+            </p>
           </CardContent>
         </Card>
 
@@ -137,8 +157,12 @@ export function FileInsights({ file }: FileInsightsProps) {
             <GitPullRequest className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{insights.dependencies.length}</div>
-            <p className="text-xs text-muted-foreground mt-1">{insights.metrics.imports} Direct Imports</p>
+            <div className="text-2xl font-bold">
+              {insights.dependencies.length}
+            </div>
+            <p className="text-xs text-muted-foreground mt-1">
+              {insights.metrics.imports} Direct Imports
+            </p>
           </CardContent>
         </Card>
 
@@ -148,8 +172,12 @@ export function FileInsights({ file }: FileInsightsProps) {
             <AlertTriangle className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{insights.codeSmells.length}</div>
-            <p className="text-xs text-muted-foreground mt-1">Potential Issues</p>
+            <div className="text-2xl font-bold">
+              {insights.codeSmells.length}
+            </div>
+            <p className="text-xs text-muted-foreground mt-1">
+              Potential Issues
+            </p>
           </CardContent>
         </Card>
       </div>
@@ -180,11 +208,15 @@ export function FileInsights({ file }: FileInsightsProps) {
                 <div key={index} className="border-b pb-2 last:border-0">
                   <div className="flex items-center justify-between">
                     <span className="font-medium">{smell.type}</span>
-                    <span className={`text-xs px-2 py-1 rounded-full ${
-                      smell.severity === 'high' ? 'bg-red-100 text-red-700' :
-                      smell.severity === 'medium' ? 'bg-yellow-100 text-yellow-700' :
-                      'bg-blue-100 text-blue-700'
-                    }`}>
+                    <span
+                      className={`text-xs px-2 py-1 rounded-full ${
+                        smell.severity === 'high'
+                          ? 'bg-red-100 text-red-700'
+                          : smell.severity === 'medium'
+                            ? 'bg-yellow-100 text-yellow-700'
+                            : 'bg-blue-100 text-blue-700'
+                      }`}
+                    >
                       {smell.severity}
                     </span>
                   </div>

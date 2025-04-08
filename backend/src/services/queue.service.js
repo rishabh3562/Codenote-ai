@@ -1,40 +1,43 @@
 import mongoose from 'mongoose';
 import logger from '../config/logger.js';
 
-const jobSchema = new mongoose.Schema({
-  type: {
-    type: String,
-    required: true,
-    enum: ['analysis', 'userAnalysis', 'fileAnalysis']
+const jobSchema = new mongoose.Schema(
+  {
+    type: {
+      type: String,
+      required: true,
+      enum: ['analysis', 'userAnalysis', 'fileAnalysis'],
+    },
+    data: {
+      type: mongoose.Schema.Types.Mixed,
+      required: true,
+    },
+    status: {
+      type: String,
+      required: true,
+      enum: ['pending', 'processing', 'completed', 'failed'],
+      default: 'pending',
+    },
+    priority: {
+      type: Number,
+      default: 0,
+    },
+    attempts: {
+      type: Number,
+      default: 0,
+    },
+    maxAttempts: {
+      type: Number,
+      default: 3,
+    },
+    error: String,
+    startedAt: Date,
+    completedAt: Date,
   },
-  data: {
-    type: mongoose.Schema.Types.Mixed,
-    required: true
-  },
-  status: {
-    type: String,
-    required: true,
-    enum: ['pending', 'processing', 'completed', 'failed'],
-    default: 'pending'
-  },
-  priority: {
-    type: Number,
-    default: 0
-  },
-  attempts: {
-    type: Number,
-    default: 0
-  },
-  maxAttempts: {
-    type: Number,
-    default: 3
-  },
-  error: String,
-  startedAt: Date,
-  completedAt: Date
-}, {
-  timestamps: true
-});
+  {
+    timestamps: true,
+  }
+);
 
 const Job = mongoose.model('Job', jobSchema);
 
@@ -44,7 +47,7 @@ export const queueService = {
       const job = await Job.create({
         type,
         data,
-        priority
+        priority,
       });
       logger.info(`Job added to queue: ${job._id}`);
       return job;
@@ -59,11 +62,11 @@ export const queueService = {
       const job = await Job.findOneAndUpdate(
         {
           status: 'pending',
-          attempts: { $lt: '$maxAttempts' }
+          attempts: { $lt: '$maxAttempts' },
         },
         {
           $set: { status: 'processing', startedAt: new Date() },
-          $inc: { attempts: 1 }
+          $inc: { attempts: 1 },
         },
         { sort: { priority: -1, createdAt: 1 }, new: true }
       );
@@ -99,7 +102,7 @@ export const queueService = {
       logger.error('Queue process job error:', error);
       throw error;
     }
-  }
+  },
 };
 
 // Start the job processor

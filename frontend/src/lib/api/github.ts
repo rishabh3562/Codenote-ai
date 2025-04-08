@@ -36,7 +36,9 @@ export async function fetchGitHubUser(username: string): Promise<GitHubUser> {
 }
 
 export async function fetchUserRepos(username: string): Promise<GitHubRepo[]> {
-  const response = await fetch(`${GITHUB_API_URL}/users/${username}/repos?sort=updated`);
+  const response = await fetch(
+    `${GITHUB_API_URL}/users/${username}/repos?sort=updated`
+  );
   if (!response.ok) {
     throw new Error(`Failed to fetch repositories: ${response.statusText}`);
   }
@@ -49,12 +51,15 @@ export async function fetchUserStats(username: string): Promise<GitHubStats> {
     fetchUserRepos(username),
   ]);
 
-  const languages = repos.reduce((acc, repo) => {
-    if (repo.language) {
-      acc[repo.language] = (acc[repo.language] || 0) + 1;
-    }
-    return acc;
-  }, {} as { [key: string]: number });
+  const languages = repos.reduce(
+    (acc, repo) => {
+      if (repo.language) {
+        acc[repo.language] = (acc[repo.language] || 0) + 1;
+      }
+      return acc;
+    },
+    {} as { [key: string]: number }
+  );
 
   return {
     user,

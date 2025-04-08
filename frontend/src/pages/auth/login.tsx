@@ -22,7 +22,7 @@ export function LoginPage() {
   const navigate = useNavigate();
   const { login, isLoading, error } = useAuth();
   const { toast } = useToast();
-  
+
   const {
     register,
     handleSubmit,
@@ -35,7 +35,7 @@ export function LoginPage() {
     try {
       await login(data);
 
-      console.log("data in login",data)
+      console.log('data in login', data);
       navigate('/dashboard');
     } catch (error) {
       toast({
@@ -83,13 +83,13 @@ export function LoginPage() {
               {...register('password')}
             />
             {errors.password && (
-              <p className="text-sm text-destructive">{errors.password.message}</p>
+              <p className="text-sm text-destructive">
+                {errors.password.message}
+              </p>
             )}
           </div>
 
-          {error && (
-            <p className="text-sm text-destructive">{error}</p>
-          )}
+          {error && <p className="text-sm text-destructive">{error}</p>}
 
           <Button type="submit" className="w-full" disabled={isLoading}>
             {isLoading ? 'Signing in...' : 'Sign in'}
@@ -107,7 +107,7 @@ export function LoginPage() {
           </div>
         </div>
 
-        <Button variant="outline" className="w-full" >
+        <Button variant="outline" className="w-full">
           <Github className="mr-2 h-4 w-4" />
           Continue with GitHub
         </Button>

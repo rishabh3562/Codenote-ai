@@ -1,7 +1,7 @@
 import express from 'express';
 import {
   analyzeFile,
-  getFileAnalysis
+  getFileAnalysis,
 } from '../controllers/file-analysis.controller.js';
 import { protect } from '../middleware/auth.js';
 

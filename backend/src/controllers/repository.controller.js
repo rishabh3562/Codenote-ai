@@ -11,7 +11,7 @@ export const getRepositories = asyncHandler(async (req, res) => {
 export const getRepository = asyncHandler(async (req, res) => {
   const repository = await Repository.findOne({
     _id: req.params.id,
-    owner: req.user._id
+    owner: req.user._id,
   }).populate('lastAnalysis');
 
   if (!repository) {
@@ -25,7 +25,7 @@ export const getRepository = asyncHandler(async (req, res) => {
 export const createRepository = asyncHandler(async (req, res) => {
   const repository = await Repository.create({
     ...req.body,
-    owner: req.user._id
+    owner: req.user._id,
   });
 
   res.status(201).json(repository);
@@ -49,7 +49,7 @@ export const updateRepository = asyncHandler(async (req, res) => {
 export const deleteRepository = asyncHandler(async (req, res) => {
   const repository = await Repository.findOneAndDelete({
     _id: req.params.id,
-    owner: req.user._id
+    owner: req.user._id,
   });
 
   if (!repository) {

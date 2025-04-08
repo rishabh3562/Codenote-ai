@@ -1,16 +1,16 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { AlertCircle, RefreshCw } from "lucide-react"
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { AlertCircle, RefreshCw } from 'lucide-react';
 
 interface ErrorCardProps {
-  title?: string
-  description?: string
-  onRetry?: () => void
+  title?: string;
+  description?: string;
+  onRetry?: () => void;
 }
 
 export function ErrorCard({
-  title = "Something went wrong",
-  description = "There was an error loading the data. Please try again.",
+  title = 'Something went wrong',
+  description = 'There was an error loading the data. Please try again.',
   onRetry,
 }: ErrorCardProps) {
   return (
@@ -31,5 +31,5 @@ export function ErrorCard({
         )}
       </CardContent>
     </Card>
-  )
+  );
 }

@@ -5,17 +5,17 @@ const cacheSchema = new mongoose.Schema({
   key: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
   },
   data: {
     type: mongoose.Schema.Types.Mixed,
-    required: true
+    required: true,
   },
   expiresAt: {
     type: Date,
     required: true,
-    index: { expires: 0 }
-  }
+    index: { expires: 0 },
+  },
 });
 
 const Cache = mongoose.model('Cache', cacheSchema);
@@ -58,5 +58,5 @@ export const cacheService = {
     } catch (error) {
       logger.error('Cache clear error:', error);
     }
-  }
+  },
 };

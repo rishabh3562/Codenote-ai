@@ -93,7 +93,7 @@ export function SettingsPage() {
   const handleSave = async () => {
     setLoading(true);
     // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    await new Promise((resolve) => setTimeout(resolve, 1000));
     setLoading(false);
     toast({
       title: 'Settings saved',
@@ -104,12 +104,13 @@ export function SettingsPage() {
   const handleExport = () => {
     toast({
       title: 'Export started',
-      description: 'Your AI insights are being exported. You will be notified when ready.',
+      description:
+        'Your AI insights are being exported. You will be notified when ready.',
     });
   };
 
   const handleProfileUpdate = (field: string, value: string) => {
-    setProfileData(prev => ({ ...prev, [field]: value }));
+    setProfileData((prev) => ({ ...prev, [field]: value }));
   };
 
   return (
@@ -117,10 +118,7 @@ export function SettingsPage() {
       <PageHeader
         title="Settings"
         description="Manage your account settings and preferences"
-        breadcrumbs={[
-          { name: 'Home', href: '/' },
-          { name: 'Settings' },
-        ]}
+        breadcrumbs={[{ name: 'Home', href: '/' }, { name: 'Settings' }]}
       />
 
       <Tabs defaultValue="profile" className="space-y-6">
@@ -159,7 +157,9 @@ export function SettingsPage() {
                   <Input
                     id="name"
                     value={profileData.name}
-                    onChange={(e) => handleProfileUpdate('name', e.target.value)}
+                    onChange={(e) =>
+                      handleProfileUpdate('name', e.target.value)
+                    }
                     placeholder="Your name"
                     className="flex-1"
                   />
@@ -174,7 +174,9 @@ export function SettingsPage() {
                     id="email"
                     type="email"
                     value={profileData.email}
-                    onChange={(e) => handleProfileUpdate('email', e.target.value)}
+                    onChange={(e) =>
+                      handleProfileUpdate('email', e.target.value)
+                    }
                     placeholder="your@email.com"
                     className="flex-1"
                   />
@@ -188,7 +190,9 @@ export function SettingsPage() {
                   <Input
                     id="website"
                     value={profileData.website}
-                    onChange={(e) => handleProfileUpdate('website', e.target.value)}
+                    onChange={(e) =>
+                      handleProfileUpdate('website', e.target.value)
+                    }
                     placeholder="https://your-website.com"
                     className="flex-1"
                   />
@@ -202,7 +206,9 @@ export function SettingsPage() {
                   <Input
                     id="avatar"
                     value={profileData.avatarUrl}
-                    onChange={(e) => handleProfileUpdate('avatarUrl', e.target.value)}
+                    onChange={(e) =>
+                      handleProfileUpdate('avatarUrl', e.target.value)
+                    }
                     placeholder="https://example.com/avatar.jpg"
                     className="flex-1"
                   />
@@ -239,7 +245,9 @@ export function SettingsPage() {
                 <Switch id="notifications" defaultChecked />
               </div>
               <div className="flex items-center justify-between">
-                <Label htmlFor="autoAnalyze">Auto-analyze new repositories</Label>
+                <Label htmlFor="autoAnalyze">
+                  Auto-analyze new repositories
+                </Label>
                 <Switch id="autoAnalyze" defaultChecked />
               </div>
             </CardContent>
@@ -251,7 +259,9 @@ export function SettingsPage() {
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="flex items-center justify-between">
-                <Label htmlFor="privateRepos">Include private repositories</Label>
+                <Label htmlFor="privateRepos">
+                  Include private repositories
+                </Label>
                 <Switch id="privateRepos" />
               </div>
               <div className="flex items-center justify-between">
@@ -271,12 +281,16 @@ export function SettingsPage() {
               <div className="space-y-2">
                 <div className="flex justify-between text-sm">
                   <span>API Calls</span>
-                  <span>{apiUsage.remaining} / {apiUsage.limit} remaining</span>
+                  <span>
+                    {apiUsage.remaining} / {apiUsage.limit} remaining
+                  </span>
                 </div>
                 <div className="h-2 bg-muted rounded-full overflow-hidden">
                   <div
                     className="h-full bg-primary"
-                    style={{ width: `${(apiUsage.total / apiUsage.limit) * 100}%` }}
+                    style={{
+                      width: `${(apiUsage.total / apiUsage.limit) * 100}%`,
+                    }}
                   />
                 </div>
                 <p className="text-sm text-muted-foreground">
@@ -311,11 +325,17 @@ export function SettingsPage() {
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Billing Cycle</span>
-                  <span className="font-medium">{billingDetails.billingCycle}</span>
+                  <span className="font-medium">
+                    {billingDetails.billingCycle}
+                  </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">Next Billing Date</span>
-                  <span className="font-medium">{billingDetails.nextBilling}</span>
+                  <span className="text-muted-foreground">
+                    Next Billing Date
+                  </span>
+                  <span className="font-medium">
+                    {billingDetails.nextBilling}
+                  </span>
                 </div>
               </div>
 

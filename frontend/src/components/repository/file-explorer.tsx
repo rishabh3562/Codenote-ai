@@ -36,7 +36,9 @@ export function FileExplorer({ files, onFileSelect }: FileExplorerProps) {
           <File className="h-4 w-4 mr-2 text-muted-foreground" />
           <span className="flex-1 truncate">{node.name}</span>
           {node.size && (
-            <span className="text-sm text-muted-foreground ml-2">{node.size}</span>
+            <span className="text-sm text-muted-foreground ml-2">
+              {node.size}
+            </span>
           )}
         </div>
       );

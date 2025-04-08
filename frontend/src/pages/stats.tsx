@@ -39,7 +39,20 @@ const DUMMY_METRICS = {
 };
 
 const DUMMY_COMMIT_ACTIVITY = Array.from({ length: 12 }, (_, i) => ({
-  month: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][i],
+  month: [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+  ][i],
   commits: Math.floor(Math.random() * 200) + 50,
 }));
 
@@ -68,10 +81,7 @@ export function StatsPage() {
       <PageHeader
         title="Statistics"
         description="Detailed analytics and insights about your development workflow"
-        breadcrumbs={[
-          { name: 'Home', href: '/' },
-          { name: 'Statistics' },
-        ]}
+        breadcrumbs={[{ name: 'Home', href: '/' }, { name: 'Statistics' }]}
       />
 
       <div className="grid gap-6">
@@ -79,21 +89,29 @@ export function StatsPage() {
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total Commits</CardTitle>
+              <CardTitle className="text-sm font-medium">
+                Total Commits
+              </CardTitle>
               <GitCommit className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{DUMMY_METRICS.totalCommits}</div>
+              <div className="text-2xl font-bold">
+                {DUMMY_METRICS.totalCommits}
+              </div>
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Active Branches</CardTitle>
+              <CardTitle className="text-sm font-medium">
+                Active Branches
+              </CardTitle>
               <GitBranch className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{DUMMY_METRICS.activeBranches}</div>
+              <div className="text-2xl font-bold">
+                {DUMMY_METRICS.activeBranches}
+              </div>
             </CardContent>
           </Card>
 
@@ -113,7 +131,9 @@ export function StatsPage() {
               <Clock className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{DUMMY_METRICS.codeReviewTime}</div>
+              <div className="text-2xl font-bold">
+                {DUMMY_METRICS.codeReviewTime}
+              </div>
             </CardContent>
           </Card>
         </div>
@@ -163,7 +183,10 @@ export function StatsPage() {
                       dataKey="value"
                     >
                       {DUMMY_PR_STATS.map((entry, index) => (
-                        <Cell key={entry.name} fill={COLORS[index % COLORS.length]} />
+                        <Cell
+                          key={entry.name}
+                          fill={COLORS[index % COLORS.length]}
+                        />
                       ))}
                     </Pie>
                     <Tooltip />

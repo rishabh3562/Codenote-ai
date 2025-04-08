@@ -26,10 +26,12 @@ const app = express();
 
 // Security middleware
 app.use(helmet());
-app.use(cors({
-  origin: process.env.CORS_ORIGIN,
-  credentials: true
-}));
+app.use(
+  cors({
+    origin: process.env.CORS_ORIGIN,
+    credentials: true,
+  })
+);
 
 // Body parser
 app.use(express.json({ limit: '50mb' }));
@@ -44,8 +46,8 @@ if (process.env.NODE_ENV === 'development') {
 // Rate limiting
 // app.use('/api', apiLimiter);
 app.get('/health', (req, res) => {
-  res.send({ message: "working fine" })
-})
+  res.send({ message: 'working fine' });
+});
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/repositories', repositoryRoutes);

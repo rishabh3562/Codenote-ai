@@ -1,5 +1,5 @@
-import { create } from "zustand";
-import apiClient from "@/services/api/client";
+import { create } from 'zustand';
+import apiClient from '@/services/api/client';
 
 interface AuthState {
   isAuthenticated: boolean;
@@ -28,7 +28,7 @@ export const useAuth = create<AuthState>((set, get) => ({
     if (get().initialized) return;
     set({ isLoading: true, error: null });
     try {
-      const res = await apiClient.get("/auth/session", {
+      const res = await apiClient.get('/auth/session', {
         withCredentials: true,
       });
       // Session exists and the access token is valid.
@@ -40,13 +40,13 @@ export const useAuth = create<AuthState>((set, get) => ({
       });
     } catch (err: any) {
       const errorMsg = err?.response?.data?.message;
-      const errorDetail = err?.response?.data?.error || "";
+      const errorDetail = err?.response?.data?.error || '';
       // If the access token is present but expired, you'll likely see "Invalid session" along with an error indicating token expiration.
       if (
-        (errorMsg === "Invalid session" &&
-          errorDetail.toLowerCase().includes("expired")) ||
-        errorMsg === "No session found" ||
-        errorMsg.toLowerCase().includes("No session found")
+        (errorMsg === 'Invalid session' &&
+          errorDetail.toLowerCase().includes('expired')) ||
+        errorMsg === 'No session found' ||
+        errorMsg.toLowerCase().includes('No session found')
       ) {
         // Try to refresh the token, then re-run init.
         try {
@@ -64,7 +64,7 @@ export const useAuth = create<AuthState>((set, get) => ({
         isAuthenticated: false,
         user: null,
         isLoading: false,
-        error: "Please login",
+        error: 'Please login',
         initialized: true,
       });
     }
@@ -73,12 +73,12 @@ export const useAuth = create<AuthState>((set, get) => ({
   login: async (credentials) => {
     set({ isLoading: true, error: null });
     try {
-      const res = await apiClient.post("/auth/login", credentials, {
+      const res = await apiClient.post('/auth/login', credentials, {
         withCredentials: true, // 🔥 Required to accept httpOnly cookies
       });
       set({ user: res.data.user, isAuthenticated: true });
     } catch (err: any) {
-      set({ error: err.response?.data?.message || "Login failed" });
+      set({ error: err.response?.data?.message || 'Login failed' });
       throw err;
     } finally {
       set({ isLoading: false });
@@ -88,7 +88,7 @@ export const useAuth = create<AuthState>((set, get) => ({
   logout: async () => {
     try {
       set({ isLoading: true, error: null });
-      await apiClient.post("/auth/logout");
+      await apiClient.post('/auth/logout');
       set({
         isAuthenticated: false,
         user: null,
@@ -104,13 +104,13 @@ export const useAuth = create<AuthState>((set, get) => ({
     try {
       set({ isLoading: true, error: null });
       const res = await apiClient.post(
-        "/auth/refresh",
+        '/auth/refresh',
         {},
         {
           withCredentials: true,
         }
       );
-      console.log("Refresh successful:", res.data);
+      console.log('Refresh successful:', res.data);
       // After refresh, reinitialize session state.
       await get().init();
     } catch (error) {

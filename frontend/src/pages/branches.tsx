@@ -41,7 +41,7 @@ const DUMMY_BRANCHES: Branch[] = [
 export function BranchesPage() {
   const [searchQuery, setSearchQuery] = useState('');
 
-  const filteredBranches = DUMMY_BRANCHES.filter(branch =>
+  const filteredBranches = DUMMY_BRANCHES.filter((branch) =>
     branch.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
@@ -50,10 +50,7 @@ export function BranchesPage() {
       <PageHeader
         title="Branches"
         description="Manage and monitor repository branches"
-        breadcrumbs={[
-          { name: 'Home', href: '/' },
-          { name: 'Branches' },
-        ]}
+        breadcrumbs={[{ name: 'Home', href: '/' }, { name: 'Branches' }]}
       />
 
       <div className="flex items-center gap-4 mb-6">
@@ -80,7 +77,9 @@ export function BranchesPage() {
                   <GitBranch className="h-5 w-5 text-muted-foreground" />
                   <div>
                     <h3 className="font-medium">{branch.name}</h3>
-                    <p className="text-sm text-muted-foreground">{branch.lastCommit}</p>
+                    <p className="text-sm text-muted-foreground">
+                      {branch.lastCommit}
+                    </p>
                   </div>
                 </div>
                 <div className="flex items-center gap-6">
@@ -104,12 +103,14 @@ export function BranchesPage() {
           title="No branches found"
           description={
             searchQuery
-              ? "No branches match your search criteria"
-              : "Create your first branch to get started"
+              ? 'No branches match your search criteria'
+              : 'Create your first branch to get started'
           }
           action={{
-            label: "Create Branch",
-            onClick: () => {/* Create branch logic */}
+            label: 'Create Branch',
+            onClick: () => {
+              /* Create branch logic */
+            },
           }}
         />
       )}

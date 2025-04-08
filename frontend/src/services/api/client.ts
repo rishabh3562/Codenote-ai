@@ -1,6 +1,6 @@
-import axios from "axios";
-import { API_CONFIG } from "@/config/api";
-import { useAuth } from "@/lib/auth";
+import axios from 'axios';
+import { API_CONFIG } from '@/config/api';
+import { useAuth } from '@/lib/auth';
 
 export const apiClient = axios.create({
   baseURL: API_CONFIG.baseURL,
@@ -18,8 +18,8 @@ apiClient.interceptors.response.use(
     if (
       error.response?.status === 401 &&
       !originalRequest._retry &&
-      !originalRequest.url.includes("/auth/session") &&
-      !originalRequest.url.includes("/auth/refresh")
+      !originalRequest.url.includes('/auth/session') &&
+      !originalRequest.url.includes('/auth/refresh')
     ) {
       originalRequest._retry = true;
       try {

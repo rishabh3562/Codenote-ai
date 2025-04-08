@@ -10,12 +10,19 @@ export const analysisService = {
     return response.data;
   },
 
-  async analyzeFile(repositoryId: string, filePath: string, content: string): Promise<FileAnalysis> {
-    const response = await apiClient.post<FileAnalysis>(API_ENDPOINTS.analysis.file, {
-      repositoryId,
-      filePath,
-      content,
-    });
+  async analyzeFile(
+    repositoryId: string,
+    filePath: string,
+    content: string
+  ): Promise<FileAnalysis> {
+    const response = await apiClient.post<FileAnalysis>(
+      API_ENDPOINTS.analysis.file,
+      {
+        repositoryId,
+        filePath,
+        content,
+      }
+    );
     return response.data;
   },
 
