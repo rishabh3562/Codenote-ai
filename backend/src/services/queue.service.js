@@ -1,5 +1,10 @@
 import mongoose from 'mongoose';
 import logger from '../config/logger.js';
+import {
+  processAnalysisJob,
+  processUserAnalysisJob,
+  processFileAnalysisJob,
+} from './job-processors.js';
 
 const jobSchema = new mongoose.Schema(
   {
