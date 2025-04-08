@@ -43,7 +43,9 @@ if (process.env.NODE_ENV === 'development') {
 
 // Rate limiting
 // app.use('/api', apiLimiter);
-
+app.get('/health', (req, res) => {
+  res.send({ message: "working fine" })
+})
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/repositories', repositoryRoutes);
