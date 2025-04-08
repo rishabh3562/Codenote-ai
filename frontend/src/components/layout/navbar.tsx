@@ -12,7 +12,6 @@ export function Navbar() {
   const navigate = useNavigate();
 
   const handleSignIn = () => {
-    login();
     navigate('/dashboard');
   };
 
