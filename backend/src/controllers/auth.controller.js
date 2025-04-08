@@ -70,12 +70,13 @@ export const login = asyncHandler(async (req, res) => {
   }
 
   const { accessToken, refreshToken } = generateTokens(user._id);
-
+  console.log("accessToken", accessToken)
+  console.log("refresh", refreshToken)
   // Set secure cookies
   res.cookie('accessToken', accessToken, cookieConfig);
   res.cookie('refreshToken', refreshToken, {
     ...cookieConfig,
-    path: '/api/auth/refresh'
+    // path: '/api/auth/refresh'
   });
 
   logger.info(`User logged in: ${user._id}`);

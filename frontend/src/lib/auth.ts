@@ -68,17 +68,18 @@ export const useAuth = create<AuthState>((set, get) => ({
     }
   },
 
-  login: async ({ email, password }) => {
+  login: async (credentials) => {
+    set({ isLoading: true, error: null });
     try {
-      set({ isLoading: true, error: null });
-      await apiClient.post("/auth/login", { email, password });
-      // After login, reinitialize session state.
-      await get().init();
-    } catch (error: any) {
-      set({
-        isLoading: false,
-        error: error.response?.data?.message || "Login failed",
+      const res = await apiClient.post("/auth/login", credentials, {
+        withCredentials: true, // 🔥 Required to accept httpOnly cookies
       });
+      set({ user: res.data.user, isAuthenticated: true });
+    } catch (err: any) {
+      set({ error: err.response?.data?.message || "Login failed" });
+      throw err;
+    } finally {
+      set({ isLoading: false });
     }
   },
 
