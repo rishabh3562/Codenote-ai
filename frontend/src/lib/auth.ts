@@ -40,12 +40,27 @@ export const useAuth = create<AuthState>((set, get) => ({
         initialized: true,
       });
     } catch (err: unknown) {
+      console.log('instanceof error', err);
       if (err instanceof AxiosError) {
+        console.log('Error during token refresh', err.response?.data?.message);
+        console.log('Error during token refresh', err);
         const errorMsg = err?.response?.data?.message;
-        if (errorMsg === 'No session found' || errorMsg === 'Invalid session') {
+        console.log('Error during session check', errorMsg);
+        if (
+          errorMsg === 'No session found' ||
+          errorMsg === 'Invalid session' ||
+          errorMsg === 'No session found' ||
+          errorMsg.toLowerCase().includes('No session found')
+        ) {
           if (!get().refreshInProgress) {
             await get().refreshToken();
-            await get().init();
+
+            // ⚠️ Only retry init if refreshToken *succeeds*
+            if (get().isAuthenticated) {
+              await get().init();
+            }
+
+            return;
           }
         } else {
           set({
@@ -78,24 +93,27 @@ export const useAuth = create<AuthState>((set, get) => ({
         {},
         { withCredentials: true }
       );
-      console.log('Refresh successful:', res.data);
-      await get().init(); // Reinitialize the auth state after a successful refresh
+      // console.log('Refresh successful:', res.data);
+
+      await get().init(); // optional
     } catch (error: unknown) {
       if (error instanceof AxiosError) {
-        console.log('Error during token refresh', error);
-        if (
-          error.response?.status === 401 &&
-          error.response?.data?.message === 'Refresh token expired'
-        ) {
-          console.log('Refresh token expired');
-          await get().logout(); // Force logout if refresh fails
+        const msg = error.response?.data?.message;
+        console.log('Error during token refresh:', msg);
+
+        if (msg === '"No refresh token provided') {
+          console.log('No refresh token — stop further calls');
+          return; // 🚫 prevent further attempts
+        }
+
+        if (error.response?.status === 401 && msg === 'Refresh token expired') {
+          await get().logout();
         } else {
-          console.log('Error during token refresh', error);
-          await get().logout(); // Force logout for any other errors
+          await get().logout();
         }
       } else {
         console.log('Unknown error during refresh', error);
-        await get().logout(); // Force logout for any unknown errors
+        await get().logout();
       }
     } finally {
       set({ refreshInProgress: false });
@@ -139,3 +157,129 @@ export const useAuth = create<AuthState>((set, get) => ({
 
   setRedirect: (url: string | null) => set({ redirectTo: url }),
 }));
+
+/*
+import { create } from 'zustand';
+import apiClient from '@/services/api/client';
+
+interface AuthState {
+  isAuthenticated: boolean;
+  user: any | null;
+  isLoading: boolean;
+  initialized: boolean;
+  error: string | null;
+  init: () => Promise<void>;
+  login: (credentials: { email: string; password: string }) => Promise<void>;
+  logout: () => Promise<void>;
+  refreshToken: () => Promise<void>;
+}
+
+export const useAuth = create<AuthState>((set, get) => ({
+  isAuthenticated: false,
+  user: null,
+  isLoading: false,
+  error: null,
+  initialized: false,
+
+  // Initialize session by calling /auth/session.
+  // - If no token exists, backend returns "No session found".
+  // - If token exists but is expired, backend returns "Invalid session" with error "jwt expired"
+  init: async () => {
+    // Run init only once per mount cycle.
+    if (get().initialized) return;
+    set({ isLoading: true, error: null });
+    try {
+      const res = await apiClient.get('/auth/session', {
+        withCredentials: true,
+      });
+      // Session exists and the access token is valid.
+      set({
+        isAuthenticated: true,
+        user: res.data,
+        isLoading: false,
+        initialized: true,
+      });
+    } catch (err: any) {
+      const errorMsg = err?.response?.data?.message;
+      const errorDetail = err?.response?.data?.error || '';
+      // If the access token is present but expired, you'll likely see "Invalid session" along with an error indicating token expiration.
+      if (
+        (errorMsg === 'Invalid session' &&
+          errorDetail.toLowerCase().includes('expired')) ||
+        errorMsg === 'No session found' ||
+        errorMsg.toLowerCase().includes('No session found')
+      ) {
+        // Try to refresh the token, then re-run init.
+        try {
+          await get().refreshToken();
+          // After refresh, recall init and exit this call.
+          await get().init();
+          return;
+        } catch {
+          // If refresh fails, fall through to setting state as not authenticated.
+        }
+      }
+      // If no token was present or refresh did not succeed,
+      // set error to prompt the user to log in.
+      set({
+        isAuthenticated: false,
+        user: null,
+        isLoading: false,
+        error: 'Please login',
+        initialized: true,
+      });
+    }
+  },
+
+  login: async (credentials) => {
+    set({ isLoading: true, error: null });
+    try {
+      const res = await apiClient.post('/auth/login', credentials, {
+        withCredentials: true, // 🔥 Required to accept httpOnly cookies
+      });
+      set({ user: res.data.user, isAuthenticated: true });
+    } catch (err: any) {
+      set({ error: err.response?.data?.message || 'Login failed' });
+      throw err;
+    } finally {
+      set({ isLoading: false });
+    }
+  },
+
+  logout: async () => {
+    try {
+      set({ isLoading: true, error: null });
+      await apiClient.post('/auth/logout');
+      set({
+        isAuthenticated: false,
+        user: null,
+        isLoading: false,
+        initialized: false,
+      });
+    } catch (error: any) {
+      set({ isLoading: false, error: error.message });
+    }
+  },
+
+  refreshToken: async () => {
+    try {
+      set({ isLoading: true, error: null });
+      const res = await apiClient.post(
+        '/auth/refresh',
+        {},
+        {
+          withCredentials: true,
+        }
+      );
+      console.log('Refresh successful:', res.data);
+      // After refresh, reinitialize session state.
+      await get().init();
+    } catch (error) {
+      // On refresh failure, force logout to prompt login.
+      await get().logout();
+    } finally {
+      set({ isLoading: false });
+    }
+  },
+}));
+*/

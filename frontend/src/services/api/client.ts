@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useAuth } from '@/lib/auth';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import { API_CONFIG } from '@/config/api';
 export const apiClient = axios.create({
   baseURL: API_CONFIG.baseURL,
@@ -14,7 +14,7 @@ apiClient.interceptors.response.use(
   (response) => response, // successful response
   async (error) => {
     const originalRequest = error.config;
-    const navigate = useNavigate(); // Use `useNavigate` from react-router-dom for redirection
+    // const navigate = useNavigate(); // Use `useNavigate` from react-router-dom for redirection
 
     if (
       error.response?.status === 401 && // 401 error means unauthorized (token expired)
@@ -27,7 +27,7 @@ apiClient.interceptors.response.use(
         // Handle the case where the refresh token is not provided
         if (error.response?.data?.message === 'No refresh token provided') {
           // Redirect to login if no refresh token is found
-          navigate('/login'); // Redirect to login page
+          window.location.href = '/login'; // Redirect to login page
           return Promise.reject(error); // Reject the error to avoid further processing
         }
 
@@ -35,7 +35,7 @@ apiClient.interceptors.response.use(
         return apiClient(originalRequest); // Retry the original request with new tokens
       } catch {
         await useAuth.getState().logout(); // Logout if refresh fails
-        navigate('/login'); // Redirect to login on logout
+        window.location.href = '/login'; // Redirect to login on logout
         return Promise.reject(error);
       }
     }
