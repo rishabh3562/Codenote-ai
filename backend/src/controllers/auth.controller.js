@@ -56,17 +56,17 @@ export const register = asyncHandler(async (req, res) => {
 });
 export const logout = asyncHandler(async (req, res) => {
   // Clear cookies by setting expiry and matching attributes
-  res.cookie('accessToken', '', {
+  res.clearCookie('accessToken', '', {
     ...cookieConfig,
-    maxAge: 0,
-    expires: new Date(0),
+    // maxAge: 0,
+    // expires: new Date(0),
     path: '/',
   });
 
-  res.cookie('refreshToken', '', {
+  res.clearCookie('refreshToken', '', {
     ...cookieConfig,
-    maxAge: 0,
-    expires: new Date(0),
+    // maxAge: 0,
+    // expires: new Date(0),
     path: '/',
   });
 

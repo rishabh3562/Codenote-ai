@@ -1,9 +1,9 @@
 export const cookieConfig = {
-  httpOnly: true,
-  // In production you’ll likely need secure cookies and sameSite 'none' (if different domains are involved)
-  secure: false,
-  // sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
-  sameSite: 'None',
+  // httpOnly: true,
+  // // In production you’ll likely need secure cookies and sameSite 'none' (if different domains are involved)
+  // secure: true,
+  // // sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+  // sameSite: 'None',
   maxAge: 7 * 24 * 60 * 60 * 1000,
 };
 // export const cookieConfig = {
