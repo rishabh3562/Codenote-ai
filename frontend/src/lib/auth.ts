@@ -20,16 +20,14 @@ export const useAuth = create<AuthState>((set, get) => ({
   error: null,
   initialized: false,
 
+  // Initialize session (calls /auth/session)
   init: async () => {
     if (get().initialized) return;
-
     set({ isLoading: true, error: null });
-
     try {
       const res = await apiClient.get("/auth/session", {
         withCredentials: true,
       });
-
       set({
         isAuthenticated: true,
         user: res.data,
@@ -37,12 +35,14 @@ export const useAuth = create<AuthState>((set, get) => ({
         initialized: true,
       });
     } catch (err: any) {
+      // When no access token or invalid session,
+      // mark as initialized to avoid repeated init loops.
       set({
         isAuthenticated: false,
         user: null,
         isLoading: false,
         error: err?.response?.data?.message || "Session invalid",
-        initialized: true, // prevent infinite loop
+        initialized: true,
       });
     }
   },
@@ -51,7 +51,7 @@ export const useAuth = create<AuthState>((set, get) => ({
     try {
       set({ isLoading: true, error: null });
       await apiClient.post("/auth/login", { email, password });
-      await get().init(); // can safely use get now
+      await get().init();
     } catch (error: any) {
       set({
         isLoading: false,
@@ -78,67 +78,17 @@ export const useAuth = create<AuthState>((set, get) => ({
   refreshToken: async () => {
     try {
       set({ isLoading: true, error: null });
-      await apiClient.get("/auth/refresh");
+      const res = await apiClient.get("/auth/refresh", {
+        withCredentials: true,
+      });
+      console.log("Refresh successful:", res.data);
+      // Reinitialize session after a successful refresh
       await get().init();
     } catch (error) {
+      // If refresh fails, logout to force re-login
       await get().logout();
     } finally {
       set({ isLoading: false });
     }
   },
 }));
-
-// import { create } from "zustand";
-// import apiClient from "@/services/api/client";
-
-// interface AuthState {
-//   isAuthenticated: boolean;
-//   user: any | null;
-//   initialized: boolean;
-//   error: string | null;
-//   init: () => Promise<void>;
-//   login: (credentials: { email: string; password: string }) => Promise<void>;
-//   logout: () => Promise<void>;
-// }
-//
-// export const useAuth = create<AuthState>((set, get) => ({
-//   isAuthenticated: false,
-//   user: null,
-//   initialized: false,
-//   error: null,
-
-//   init: async () => {
-//     if (get().initialized) return;
-//     try {
-//       const res = await apiClient.get("/auth/session", {
-//         withCredentials: true,
-//       });
-//       set({
-//         isAuthenticated: true,
-//         user: res.data,
-//         initialized: true,
-//       });
-//     } catch (err: any) {
-//       set({
-//         isAuthenticated: false,
-//         user: null,
-//         error: err?.response?.data?.message || "Session invalid",
-//         initialized: true,
-//       });
-//     }
-//   },
-
-//   login: async ({ email, password }) => {
-//     await apiClient.post("/auth/login", { email, password });
-//     await get().init();
-//   },
-
-//   logout: async () => {
-//     await apiClient.post("/auth/logout");
-//     set({
-//       isAuthenticated: false,
-//       user: null,
-//       initialized: false,
-//     });
-//   },
-// }));

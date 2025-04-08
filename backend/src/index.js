@@ -42,7 +42,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 // Rate limiting
-app.use('/api', apiLimiter);
+// app.use('/api', apiLimiter);
 
 // Routes
 app.use('/api/auth', authRoutes);
