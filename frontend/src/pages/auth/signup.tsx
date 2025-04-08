@@ -27,7 +27,7 @@ type SignupForm = z.infer<typeof signupSchema>;
 
 export function SignupPage() {
   const navigate = useNavigate();
-  const { register: signup } = useAuth();
+  const { signup } = useAuth();
   const { toast } = useToast();
 
   const {
@@ -40,7 +40,12 @@ export function SignupPage() {
 
   const onSubmit = async (data: SignupForm) => {
     try {
-      await signup(data);
+      await signup({
+        name: data.name,
+        email: data.email,
+        password: data.password,
+      });
+
       navigate('/dashboard');
     } catch (error) {
       toast({

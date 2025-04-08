@@ -15,6 +15,11 @@ interface AuthState {
   refreshInProgress: boolean;
   setRedirect: (url: string | null) => void;
   redirectTo: string | null;
+  signup: (data: {
+    name: string;
+    email: string;
+    password: string;
+  }) => Promise<void>;
 }
 
 export const useAuth = create<AuthState>((set, get) => ({
@@ -132,6 +137,24 @@ export const useAuth = create<AuthState>((set, get) => ({
         set({ error: err.response?.data?.message || 'Login failed' });
       } else {
         set({ error: 'Unknown error during login' });
+      }
+      throw err;
+    } finally {
+      set({ isLoading: false });
+    }
+  },
+  signup: async (data: { name: string; email: string; password: string }) => {
+    set({ isLoading: true, error: null });
+    try {
+      const res = await apiClient.post('/auth/register', data, {
+        withCredentials: true,
+      });
+      set({ user: res.data.user, isAuthenticated: true });
+    } catch (err: unknown) {
+      if (err instanceof AxiosError) {
+        set({ error: err.response?.data?.message || 'Signup failed' });
+      } else {
+        set({ error: 'Unknown error during signup' });
       }
       throw err;
     } finally {

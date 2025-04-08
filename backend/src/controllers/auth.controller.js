@@ -40,7 +40,7 @@ export const register = asyncHandler(async (req, res) => {
   res.cookie('accessToken', accessToken, cookieConfig);
   res.cookie('refreshToken', refreshToken, {
     ...cookieConfig,
-    path: '/api/auth/refresh',
+    // path: '/api/auth/refresh',
   });
 
   logger.info(`New user registered: ${user._id}`);
