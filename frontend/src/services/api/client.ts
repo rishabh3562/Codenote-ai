@@ -9,12 +9,12 @@ export const apiClient = axios.create({
   withCredentials: true, // Sends cookies with requests
 });
 
-// Response interceptor for auth errors
+// Response interceptor for handling 401 errors (auth issues)
 apiClient.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
-    // Only attempt refresh if the request is not for session or refresh endpoints.
+
     if (
       error.response?.status === 401 &&
       !originalRequest._retry &&
@@ -23,15 +23,15 @@ apiClient.interceptors.response.use(
     ) {
       originalRequest._retry = true;
       try {
+        // Use POST here as well.
         await useAuth.getState().refreshToken();
-        // Retry the original request after refresh
         return apiClient(originalRequest);
       } catch {
-        // Logout if refresh fails
         await useAuth.getState().logout();
         return Promise.reject(error);
       }
     }
+
     return Promise.reject(error);
   }
 );
