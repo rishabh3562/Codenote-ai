@@ -43,8 +43,10 @@ export const useAuth = create<AuthState>((set, get) => ({
       const errorDetail = err?.response?.data?.error || "";
       // If the access token is present but expired, you'll likely see "Invalid session" along with an error indicating token expiration.
       if (
-        errorMsg === "Invalid session" &&
-        errorDetail.toLowerCase().includes("expired")
+        (errorMsg === "Invalid session" &&
+          errorDetail.toLowerCase().includes("expired")) ||
+        errorMsg === "No session found" ||
+        errorMsg.toLowerCase().includes("No session found")
       ) {
         // Try to refresh the token, then re-run init.
         try {
@@ -101,9 +103,13 @@ export const useAuth = create<AuthState>((set, get) => ({
   refreshToken: async () => {
     try {
       set({ isLoading: true, error: null });
-      const res = await apiClient.post("/auth/refresh", null, {
-        withCredentials: true,
-      });
+      const res = await apiClient.post(
+        "/auth/refresh",
+        {},
+        {
+          withCredentials: true,
+        }
+      );
       console.log("Refresh successful:", res.data);
       // After refresh, reinitialize session state.
       await get().init();
