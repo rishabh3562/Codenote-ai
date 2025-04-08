@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 dotenv.config();
 const isProd = process.env.NODE_ENV === 'production';
+console.log('cookie.js');
 console.log(process.env.NODE_ENV);
 console.log(isProd);
 export const cookieConfig = {
