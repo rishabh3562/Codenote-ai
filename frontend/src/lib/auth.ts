@@ -165,7 +165,7 @@ export const useAuth = create<AuthState>((set, get) => ({
   logout: async () => {
     set({ isLoading: true, error: null });
     try {
-      await apiClient.post('/auth/logout');
+      await apiClient.post('/auth/logout', {}, { withCredentials: true });
       set({
         isAuthenticated: false,
         user: null,
