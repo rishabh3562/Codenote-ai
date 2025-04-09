@@ -58,10 +58,14 @@ export function Sidebar() {
         <Tooltip>
           <TooltipTrigger asChild>
             <Button
-              variant={isActive(path) ? 'secondary' : 'ghost'}
+              variant="ghost"
               size="icon"
-              className="w-10 h-10"
+              className={`w-10 h-10 relative group ${isActive(path) ? 'bg-muted text-primary' : 'text-muted-foreground'}`}
             >
+              {isActive(path) && (
+                <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-primary rounded-r" />
+              )}
+
               <Icon className="h-5 w-5" />
             </Button>
           </TooltipTrigger>
@@ -74,13 +78,17 @@ export function Sidebar() {
   );
 
   return (
-    <div className="fixed left-0 top-0 h-full w-16 bg-background border-r flex flex-col items-center py-4 space-y-4">
-      <div className="w-10 h-10 rounded-full overflow-hidden mb-2">
-        <img
-          src={user?.avatarUrl}
-          alt={user?.name}
-          className="w-full h-full object-cover"
-        />
+    <div className="fixed left-0 top-0 h-full w-16 bg-background border-r flex flex-col justify-between items-center py-4">
+      <div className="w-10 h-10 rounded-full overflow-hidden mb-2 bg-muted flex items-center justify-center text-sm font-medium text-white">
+        {user?.avatarUrl ? (
+          <img
+            src={user.avatarUrl}
+            alt={user.name}
+            className="w-full h-full object-cover"
+          />
+        ) : (
+          <span className="uppercase">{user?.name?.[0] ?? 'U'}</span>
+        )}
       </div>
 
       <div className="flex-1 space-y-6">
